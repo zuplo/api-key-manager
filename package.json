@@ -1,8 +1,8 @@
 {
   "name": "@zuplo/react-api-key-manager",
-  "version": "0.3.1",
+  "version": "0.4.1",
   "description": "A React component to manage API keys",
-  "license": "MIT",
+  "license": "UNLICENSED",
   "author": "Zuplo",
   "type": "module",
   "keywords": [
@@ -22,6 +22,7 @@
   },
   "main": "./dist/react-api-key-manager.umd.js",
   "module": "./dist/react-api-key-manager.es.js",
+  "types": "./dist/index.d.ts",
   "exports": {
     ".": {
       "import": "./dist/react-api-key-manager.es.js",
@@ -59,6 +60,10 @@
     "parserOptions": {
       "sourceType": "module"
     }
+  },
+  "peerDependencies": {
+    "react": "^16.8.0 || 18.x",
+    "react-dom": "^16.8.0 || 18.x"
   },
   "dependencies": {
     "@heroicons/react": "^2.0.18",

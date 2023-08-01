@@ -8,7 +8,7 @@ interface Props {
   menuItems?: MenuItem[];
 }
 
-export default function ApiKeyManager({ provider, menuItems }: Props) {
+const ApiKeyManager = ({ provider, menuItems }: Props) => {
   const queryEngine = useProviderQueryEngine(provider);
   const query = queryEngine.useMyConsumersQuery();
 
@@ -32,4 +32,6 @@ export default function ApiKeyManager({ provider, menuItems }: Props) {
       })}
     </QueryEngineContext.Provider>
   );
-}
+};
+
+export default ApiKeyManager;
