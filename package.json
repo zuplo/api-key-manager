@@ -16,6 +16,10 @@
     "dist",
     "README.md"
   ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/zuplo/react-api-key-manager"
+  },
   "main": "./dist/react-api-key-manager.umd.js",
   "module": "./dist/react-api-key-manager.es.js",
   "exports": {
