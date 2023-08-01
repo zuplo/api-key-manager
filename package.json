@@ -1,7 +1,6 @@
 {
-  "name": "react-api-key-manager",
-  "private": true,
-  "version": "0.0.0",
+  "name": "@zuplo/react-api-key-manager",
+  "version": "0.2.0",
   "description": "A React component to manage API keys",
   "license": "MIT",
   "author": "Zuplo",

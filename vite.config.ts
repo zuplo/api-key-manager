@@ -6,7 +6,7 @@ import path from "path";
 export default defineConfig({
   build: {
     lib: {
-      entry: path.resolve(__dirname, "src/lib/index.jsx"),
+      entry: path.resolve(__dirname, "src/lib/index.tsx"),
       name: "React API Key Manager",
       fileName: (format) => `react-api-key-manager.${format}.js`,
     },
