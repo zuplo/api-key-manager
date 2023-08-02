@@ -6,7 +6,9 @@ This react component allows you to manager API keys given a provider configurati
 
 Via NPM
 
-`npm install @zuplo/react-api-key-manager`
+```
+npm install @zuplo/react-api-key-manager
+```
 
 ## Usage
 
