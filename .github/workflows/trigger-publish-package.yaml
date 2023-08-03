@@ -1,0 +1,47 @@
+## Bumps the (minor) version number of the package
+## Commits and pushes the changes
+## Creates a tag/release
+
+name: Trigger Publish
+on:
+  workflow_dispatch:
+
+jobs:
+  release:
+    name: Trigger Publish
+    runs-on: ubuntu-latest
+    if: github.ref == 'refs/heads/main' # This can only be triggered from main
+
+    permissions:
+      contents: write
+
+    env:
+      CHECKOUT_TOKEN:
+        ${{ secrets.GH_TOKEN_COMMIT_AND_BYPASS_BRANCH_PROTECTION }}
+      GITHUB_TOKEN: ${{ secrets.GH_CUSTOM_TOKEN }}
+      GITHUB_NPM_TOKEN: ${{ secrets.GH_CUSTOM_TOKEN }}
+      NODE_AUTH_TOKEN: ${{ secrets.GH_CUSTOM_TOKEN }}
+
+    steps:
+      - uses: actions/checkout@v3
+        with:
+          # Override the default token because the built-in
+          # token cannot trigger other workflows
+          # https://github.community/t/github-actions-workflow-not-triggering-with-tag-push/17053/2
+          token: ${{ secrets.GH_TOKEN_COMMIT_AND_BYPASS_BRANCH_PROTECTION }}
+      - uses: actions/setup-node@v3
+        with:
+          node-version: "18.x"
+          registry-url: "https://npm.pkg.github.com"
+
+      - run: git config --global user.email "integrations@zuplo.com"
+      - run: git config --global user.name "Integration Service"
+
+      - run: npm ci
+
+      - run: npm version minor
+
+      - name: Push commit and tags to origin
+        run: |
+          git push origin main
+          git push --tags
