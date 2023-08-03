@@ -1,9 +1,9 @@
 import {
   CheckIcon,
   DocumentDuplicateIcon,
-  EllipsisHorizontalIcon,
   EyeIcon,
   EyeSlashIcon,
+  TrashIcon,
 } from "@heroicons/react/24/outline";
 import dayjs from "dayjs";
 import localizedFormat from "dayjs/plugin/localizedFormat";
@@ -11,7 +11,6 @@ import relativeTime from "dayjs/plugin/relativeTime";
 import { useState } from "react";
 import { ApiKey } from "../interfaces";
 import { useQueryEngineContext } from "../useQueryEngineContext";
-import { SimpleMenu } from "./SimpleMenu";
 
 interface KeyControlProps {
   consumerName: string;
@@ -32,7 +31,7 @@ function mask(value: string, mask: boolean) {
   return maskedPart + lastEightChars;
 }
 
-const KeyControl = ({ consumerName, apiKey }: KeyControlProps) => {
+const KeyControl = ({ apiKey }: KeyControlProps) => {
   const [masked, setMasked] = useState<boolean>(true);
   const [copied, setCopied] = useState<boolean>(false);
   const { useDeleteKeyMutation, useRollKeyMutation } = useQueryEngineContext();
@@ -47,39 +46,39 @@ const KeyControl = ({ consumerName, apiKey }: KeyControlProps) => {
     }, 2000);
   }
 
-  function rollKey() {
-    keyRollMutation.mutate({
-      consumerName: consumerName,
-      // TODO - provide options, expire in 7 days for now
-      expiresOn: new Date(Date.now() + 1000 * 60 * 60 * 24 * 7),
-    });
-  }
+  // function rollKey() {
+  //   keyRollMutation.mutate({
+  //     consumerName: consumerName,
+  //     // TODO - provide options, expire in 7 days for now
+  //     expiresOn: new Date(Date.now() + 1000 * 60 * 60 * 24 * 7),
+  //   });
+  // }
 
-  function deleteKey() {
-    deleteKeyMutation.mutate({
-      consumerName: consumerName,
-      keyId: apiKey.id,
-    });
-  }
+  // function deleteKey() {
+  //   deleteKeyMutation.mutate({
+  //     consumerName: consumerName,
+  //     keyId: apiKey.id,
+  //   });
+  // }
 
   // if there is an expiry, show the delete key operation
-  const menuItems = apiKey.expiresOn
-    ? [
-        {
-          label: "Delete Key",
-          action: () => {
-            deleteKey();
-          },
-        },
-      ]
-    : [
-        {
-          label: "Roll Key",
-          action: () => {
-            rollKey();
-          },
-        },
-      ];
+  // const menuItems = apiKey.expiresOn
+  //   ? [
+  //       {
+  //         label: "Delete Key",
+  //         action: () => {
+  //           deleteKey();
+  //         },
+  //       },
+  //     ]
+  //   : [
+  //       {
+  //         label: "Roll Key",
+  //         action: () => {
+  //           rollKey();
+  //         },
+  //       },
+  //     ];
 
   const keyMutating = keyRollMutation.isLoading || deleteKeyMutation.isLoading;
 
@@ -88,42 +87,44 @@ const KeyControl = ({ consumerName, apiKey }: KeyControlProps) => {
       <div className="flex flex-row justify-between items-center">
         <div className="font-mono py-2 mr-2">{mask(apiKey.key, masked)}</div>
 
-        <div className="flex justify-end space-x-1 text-gray-600">
+        <div className="flex gap-x-1 justify-end text-gray-700">
           <button
-            className="rounded-lg p-2 hover:bg-gray-200"
+            className="rounded p-1 hover:bg-gray-200"
             onClick={() => copy(apiKey.key)}
           >
             {copied ? (
-              <CheckIcon className="text-green-500 h-4 w-4" />
+              <CheckIcon className="text-green-500 h-5 w-5" />
             ) : (
-              <DocumentDuplicateIcon className="h-4 w-4" />
+              <DocumentDuplicateIcon className="h-5 w-5" />
             )}
           </button>
           <button
-            className="rounded-lg p-2 hover:bg-gray-200"
+            className="rounded p-1 hover:bg-gray-200"
+            title={masked ? "Show Key" : "Hide Key"}
             onClick={() => {
               setMasked(!masked);
             }}
           >
             {masked ? (
-              <EyeSlashIcon className="h-4 w-4" />
+              <EyeIcon className="h-5 w-5" />
             ) : (
-              <EyeIcon className="h-4 w-4" />
+              <EyeSlashIcon className="h-5 w-5" />
             )}
           </button>
-
-          {keyMutating ? (
-            <div className="p-2">
-              <div>TODO: Spinner</div>
-            </div>
-          ) : (
-            <SimpleMenu items={menuItems}>
-              <div className="rounded-lg p-2 hover:bg-gray-200 -mb-2">
-                <EllipsisHorizontalIcon className="h-4 w-4" />
-                ...
+          {apiKey.expiresOn ? (
+            keyMutating ? (
+              <div className="p-2">
+                <div>TODO: Spinner</div>
               </div>
-            </SimpleMenu>
-          )}
+            ) : (
+              <button
+                title="Delete Key"
+                className="rounded p-1 hover:bg-gray-200"
+              >
+                <TrashIcon className="h-5 w-5" />
+              </button>
+            )
+          ) : null}
         </div>
       </div>
 

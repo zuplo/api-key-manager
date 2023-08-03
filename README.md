@@ -29,3 +29,11 @@ const MyComponent = () => {
 }
 
 ```
+
+## Example
+
+```
+cd examples/nextjs
+npm install
+
+```

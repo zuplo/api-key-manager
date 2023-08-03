@@ -1,7 +1,4 @@
-import {
-  EllipsisHorizontalIcon,
-  XCircleIcon,
-} from "@heroicons/react/24/outline";
+import { EllipsisVerticalIcon, XCircleIcon } from "@heroicons/react/24/outline";
 import { useState } from "react";
 import { Consumer, MenuItem } from "../interfaces";
 import { useQueryEngineContext } from "../useQueryEngineContext";
@@ -56,7 +53,7 @@ const ConsumerControl = ({ consumer, menuItems }: ConsumerControlProps) => {
 
   return (
     <div className="rounded-lg bg-gray-200 border-gray-200 border mb-5">
-      <div className="flex flex-row justify-between items-center h-10">
+      <div className="flex flex-row justify-between items-center">
         {edit ? (
           <div className="flex flex-row w-full">
             <input
@@ -81,13 +78,12 @@ const ConsumerControl = ({ consumer, menuItems }: ConsumerControlProps) => {
             </button>
           </div>
         ) : (
-          <div className="p-2">{consumer.description ?? consumer.name}</div>
+          <div className="m-4">{consumer.description ?? consumer.name}</div>
         )}
-        <div className="m-1">
+        <div className="m-3">
           <SimpleMenu items={fancyDropDownMenuItems ?? []}>
-            <div className="hover:bg-gray-300 p-2 rounded">
-              <EllipsisHorizontalIcon className="h-4 w-4" />
-              ...
+            <div className="hover:bg-gray-300 rounded p-1">
+              <EllipsisVerticalIcon className="h-4 w-4" />
             </div>
           </SimpleMenu>
         </div>
@@ -105,7 +101,7 @@ const ConsumerControl = ({ consumer, menuItems }: ConsumerControlProps) => {
           </div>
         </div>
       )}
-      <div className="bg-white rounded-b-lg p-2">
+      <div className="bg-white rounded-b-lg p-4 py-2">
         {consumer.apiKeys.map((k) => (
           <KeyControl key={k.id} apiKey={k} consumerName={consumer.name} />
         ))}

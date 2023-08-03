@@ -15,7 +15,6 @@ export function SimpleMenu({ items, children }: Props) {
 
   useEffect(() => {
     document.addEventListener("click", () => {
-      console.log("document click");
       setIsOpen(false);
     });
   }, []);

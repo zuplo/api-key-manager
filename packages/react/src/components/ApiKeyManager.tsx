@@ -1,7 +1,8 @@
-import { QueryEngineContext } from "../context";
 import { ApiKeyManagerProvider, MenuItem } from "../interfaces";
+import { QueryEngineContext } from "../context";
 import { useProviderQueryEngine } from "../useProviderQueryEngine";
-import ConsumerControl from "./ConsumerControl";
+import ConsumerControl from "../components/ConsumerControl";
+import ConsumerLoading from "../components/ConsumerLoading";
 
 interface Props {
   provider: ApiKeyManagerProvider;
@@ -11,10 +12,9 @@ interface Props {
 const ApiKeyManager = ({ provider, menuItems }: Props) => {
   const queryEngine = useProviderQueryEngine(provider);
   const query = queryEngine.useMyConsumersQuery();
-
   if (!query.data && query.isLoading) {
     // TODO - show glimmer (no dancing)?
-    return <div>Loading...</div>;
+    return <ConsumerLoading />;
   }
 
   const consumers = query.data?.data;
