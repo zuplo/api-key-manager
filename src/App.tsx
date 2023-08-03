@@ -1,5 +1,5 @@
 import ApiKeyManager from "./lib";
-import { DefaultApiKeyManagerProvider } from "./libs/sample-provider";
+import { DefaultApiKeyManagerProvider } from "./libs/default-provider";
 
 function App() {
   const defaultProvider = new DefaultApiKeyManagerProvider(
