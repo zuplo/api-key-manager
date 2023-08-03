@@ -1,6 +1,6 @@
 {
   "name": "@zuplo/api-key-manager",
-  "version": "0.18.0",
+  "version": "0.19.0",
   "description": "A React component to manage API keys",
   "license": "MIT",
   "author": "Zuplo",
