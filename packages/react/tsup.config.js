@@ -15,7 +15,7 @@ export default defineConfig([
     entry: {
       index: "src/index.tsx",
     },
-    external: ["react"],
+    external: ["react", "dayjs"],
     outDir: "dist",
     esbuildOptions: (options) => {
       // Append "use client" to the top of the react entry point

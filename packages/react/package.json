@@ -1,6 +1,6 @@
 {
   "name": "@zuplo/react-api-key-manager",
-  "version": "0.19.0",
+  "version": "0.20.0",
   "description": "A React component to manage API keys",
   "keywords": [
     "react",
@@ -52,7 +52,6 @@
     "react-dom": "^16.8.0 || 18.x"
   },
   "dependencies": {
-    "@heroicons/react": "^2.0.18",
     "dayjs": "^1.11.9"
   },
   "devDependencies": {

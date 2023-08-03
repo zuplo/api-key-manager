@@ -1,5 +1,6 @@
-import { EllipsisVerticalIcon, XCircleIcon } from "@heroicons/react/24/outline";
+import { EllipsisVerticalIcon } from "@heroicons/react/24/outline";
 import { useState } from "react";
+import { XCircleIcon } from "../icons";
 import { Consumer, MenuItem } from "../interfaces";
 import { useQueryEngineContext } from "../useQueryEngineContext";
 import KeyControl from "./KeyControl";
