@@ -7,7 +7,7 @@ import dts from "vite-plugin-dts";
 export default defineConfig({
   build: {
     lib: {
-      entry: path.resolve(__dirname, "src/lib/index.tsx"),
+      entry: path.resolve(__dirname, "src/lib/index.ts"),
       name: "React API Key Manager",
       fileName: (format) => `react-api-key-manager.${format}.js`,
     },
