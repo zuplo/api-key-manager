@@ -2,13 +2,13 @@
 ## Commits and pushes the changes
 ## Creates a tag/release
 
-name: Trigger Publish
+name: Run Release
 on:
   workflow_dispatch:
 
 jobs:
   release:
-    name: Trigger Publish
+    name: Run Release
     runs-on: ubuntu-latest
     if: github.ref == 'refs/heads/main' # This can only be triggered from main
 
@@ -38,9 +38,4 @@ jobs:
 
       - run: npm ci
 
-      - run: npm version minor
-
-      - name: Push commit and tags to origin
-        run: |
-          git push origin main
-          git push --tags
+      - run: npm run release

@@ -12,7 +12,10 @@
     "build": "npm run build --workspace packages/react",
     "dev": "npm run dev --workspace examples/nextjs",
     "format": "prettier --write .",
-    "lint": "eslint --ext .ts,.tsx ."
+    "lint": "eslint --ext .ts,.tsx .",
+    "release": "npm version minor",
+    "version": "npm version $npm_package_version --workspaces && git add **/package.json",
+    "postversion": "git push --tags && git push"
   },
   "workspaces": [
     "packages/*",
