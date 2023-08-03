@@ -1,4 +1,4 @@
-import ApiKeyManager from "./lib";
+import { ApiKeyManager } from "./lib";
 import { DefaultApiKeyManagerProvider } from "./libs/default-provider";
 
 function App() {
