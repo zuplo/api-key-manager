@@ -12,7 +12,7 @@ interface ConsumerDescriptionMutationOptions {
 
 interface RollKeyMutationOptions {
   consumerName: string;
-  expireIn: string;
+  expiresOn: Date;
 }
 
 interface DeleteKeyMutationOptions {
@@ -23,14 +23,12 @@ interface DeleteKeyMutationOptions {
 export interface QueryEngine {
   useMyConsumersQuery: () => QueryState<ConsumerData>;
   useRollKeyMutation: () => MutationState<RollKeyMutationOptions>;
-  useConsumerDescriptionMutation: () => MutationState<
-    ConsumerDescriptionMutationOptions
-  >;
+  useConsumerDescriptionMutation: () => MutationState<ConsumerDescriptionMutationOptions>;
   useDeleteKeyMutation: () => MutationState<DeleteKeyMutationOptions>;
 }
 
 export function useProviderQueryEngine(
-  provider: ApiKeyManagerProvider,
+  provider: ApiKeyManagerProvider
 ): QueryEngine {
   const useMyConsumersQuery = () => {
     return useMiniQuery(() => provider.getConsumers(), MY_CONSUMERS_KEY);
@@ -38,10 +36,10 @@ export function useProviderQueryEngine(
 
   const useRollKeyMutation = () => {
     return useMiniMutation(
-      ({ consumerName, expireIn }: RollKeyMutationOptions) => {
-        return provider.rollKey(consumerName, expireIn);
+      ({ consumerName, expiresOn }: RollKeyMutationOptions) => {
+        return provider.rollKey(consumerName, expiresOn);
       },
-      INVALIDATE_OPTIONS,
+      INVALIDATE_OPTIONS
     );
   };
 
@@ -50,7 +48,7 @@ export function useProviderQueryEngine(
       ({ consumerName, description }: ConsumerDescriptionMutationOptions) => {
         return provider.updateConsumerDescription(consumerName, description);
       },
-      INVALIDATE_OPTIONS,
+      INVALIDATE_OPTIONS
     );
   };
 
@@ -59,7 +57,7 @@ export function useProviderQueryEngine(
       ({ consumerName, keyId }: DeleteKeyMutationOptions) => {
         return provider.deleteKey(consumerName, keyId);
       },
-      INVALIDATE_OPTIONS,
+      INVALIDATE_OPTIONS
     );
   };
 
