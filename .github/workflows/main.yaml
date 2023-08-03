@@ -31,10 +31,8 @@ jobs:
           registry-url: "https://npm.pkg.github.com"
 
       - name: Archive Example
-        uses: actions/upload-artifact@v3
-        with:
-          name: api-key-nextjs-example
-          path: examples/nextjs
+        run: zip -r nextjs-example.zip .
+        working-directory: ./examples/nextjs
 
       - run: npm ci
       - run: npm run build
@@ -59,3 +57,4 @@ jobs:
       - uses: ncipollo/release-action@v1
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
+          artifacts: examples/nextjs/nextjs-example.zip
