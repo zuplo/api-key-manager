@@ -50,7 +50,8 @@ const KeyControl = ({ consumerName, apiKey }: KeyControlProps) => {
   function rollKey() {
     keyRollMutation.mutate({
       consumerName: consumerName,
-      expireIn: "1-hour",
+      // TODO - provide options, expire in 7 days for now
+      expiresOn: new Date(Date.now() + 1000 * 60 * 60 * 24 * 7),
     });
   }
 

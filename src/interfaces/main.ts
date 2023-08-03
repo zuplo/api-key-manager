@@ -1,10 +1,10 @@
 export interface ApiKeyManagerProvider {
   getConsumers: () => Promise<ConsumerData>;
-  rollKey: (consumerName: string, expireIn: string) => Promise<void>;
+  rollKey: (consumerName: string, expiresOn: Date) => Promise<void>;
   deleteKey: (consumerName: string, keyId: string) => Promise<void>;
   updateConsumerDescription: (
     consumerName: string,
-    description: string,
+    description: string
   ) => Promise<void>;
 }
 
