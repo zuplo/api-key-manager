@@ -30,6 +30,12 @@ jobs:
           cache: "npm"
           registry-url: "https://npm.pkg.github.com"
 
+      - name: Archive Example
+        uses: actions/upload-artifact@v3
+        with:
+          name: api-key-nextjs-example
+          path: examples/nextjs
+
       - run: npm ci
       - run: npm run build
         working-directory: ./packages/react
