@@ -1,14 +1,14 @@
+import dayjs from "dayjs";
+import localizedFormat from "dayjs/plugin/localizedFormat";
+import relativeTime from "dayjs/plugin/relativeTime";
+import { useState } from "react";
 import {
   CheckIcon,
   DocumentDuplicateIcon,
   EllipsisHorizontalIcon,
   EyeIcon,
   EyeSlashIcon,
-} from "@heroicons/react/24/outline";
-import dayjs from "dayjs";
-import localizedFormat from "dayjs/plugin/localizedFormat";
-import relativeTime from "dayjs/plugin/relativeTime";
-import { useState } from "react";
+} from "../icons";
 import { ApiKey } from "../interfaces";
 import { useQueryEngineContext } from "../useQueryEngineContext";
 import { SimpleMenu } from "./SimpleMenu";
