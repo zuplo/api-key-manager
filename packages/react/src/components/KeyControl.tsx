@@ -120,7 +120,6 @@ const KeyControl = ({ consumerName, apiKey }: KeyControlProps) => {
             <SimpleMenu items={menuItems}>
               <div className="rounded-lg p-2 hover:bg-gray-200 -mb-2">
                 <EllipsisHorizontalIcon className="h-4 w-4" />
-                ...
               </div>
             </SimpleMenu>
           )}
