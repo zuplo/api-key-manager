@@ -87,6 +87,7 @@ const ConsumerControl = ({ consumer, menuItems }: ConsumerControlProps) => {
           <SimpleMenu items={fancyDropDownMenuItems ?? []}>
             <div className="hover:bg-gray-300 p-2 rounded">
               <EllipsisHorizontalIcon className="h-4 w-4" />
+              ...
             </div>
           </SimpleMenu>
         </div>
