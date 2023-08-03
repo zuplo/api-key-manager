@@ -24,31 +24,31 @@ jobs:
       packages: write
     steps:
       - uses: actions/checkout@v3
+      - uses: actions/setup-node@v3
+        with:
+          node-version-file: ".nvmrc"
+          cache: "npm"
+          registry-url: "https://npm.pkg.github.com"
+
       - run: npm ci
       - run: npm run build
         working-directory: ./packages/react
-
-      #   # To the public NPM Registry
-      #   - uses: actions/setup-node@v3
-      #     with:
-      #       node-version: "18.x"
-      #       registry-url: "https://registry.npmjs.com"
-      #   - run: npm config list
-      #   - run: npm publish
-      #     env:
-      #       NODE_AUTH_TOKEN: ${{ secrets.PUBLIC_NPM_REGISTRY_TOKEN }}
-
-      # To the Github Package Registry
-      - uses: actions/setup-node@v3
-        with:
-          node-version: "18.x"
-          registry-url: "https://npm.pkg.github.com"
-      - run: npm config list
 
       - run: npm publish
         working-directory: ./packages/react
         env:
           NODE_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      #   # To the public NPM Registry
+      #   - uses: actions/setup-node@v3
+      #     with:
+      #       node-version-file: ".nvmrc"
+      #       cache: "npm"
+      #       registry-url: "https://registry.npmjs.com"
+      #   - run: npm config list
+      #   - run: npm publish
+      #     env:
+      #       NODE_AUTH_TOKEN: ${{ secrets.PUBLIC_NPM_REGISTRY_TOKEN }}
 
       - uses: ncipollo/release-action@v1
         with:
