@@ -13,7 +13,7 @@ export class DefaultApiKeyManagerProvider implements ApiKeyManagerProvider {
     url: string,
     okStatus: number,
     method: string = "GET",
-    body?: object,
+    body?: object
   ) => {
     const headers: Record<string, string> = {
       authorization: `Bearer ${this.token}`,
@@ -32,7 +32,7 @@ export class DefaultApiKeyManagerProvider implements ApiKeyManagerProvider {
     if (response.status !== okStatus) {
       throw new Error(
         `Failed '${method}' operation calling '${url}'
-         - ${response.status}: ${response.statusText}`,
+         - ${response.status}: ${response.statusText}`
       );
     }
 
@@ -49,9 +49,9 @@ export class DefaultApiKeyManagerProvider implements ApiKeyManagerProvider {
     return data;
   };
 
-  rollKey = async (consumerName: string, expireIn: string) => {
+  rollKey = async (consumerName: string, expiresOn: Date) => {
     await this.innerFetch(`/consumers/${consumerName}/roll`, 200, "POST", {
-      expireIn,
+      expiresOn,
     });
   };
 
@@ -59,13 +59,13 @@ export class DefaultApiKeyManagerProvider implements ApiKeyManagerProvider {
     await this.innerFetch(
       `/consumers/${consumerName}/keys/${keyId}`,
       204,
-      "DELETE",
+      "DELETE"
     );
   };
 
   updateConsumerDescription = async (
     consumerName: string,
-    description: string,
+    description: string
   ) => {
     const data = await this.innerFetch(
       `/consumers/${consumerName}`,
@@ -73,7 +73,7 @@ export class DefaultApiKeyManagerProvider implements ApiKeyManagerProvider {
       "PATCH",
       {
         description,
-      },
+      }
     );
     return data;
   };
