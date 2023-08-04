@@ -36,7 +36,7 @@ const ConsumerControl = ({
       return;
     }
     setQueryError(undefined);
-  }, [consumerDescriptionMutation.error]);
+  }, [consumerDescriptionMutation.isLoading]);
 
   useEffect(() => {
     if (keyRollMutation.error) {
@@ -44,9 +44,9 @@ const ConsumerControl = ({
       return;
     }
     setQueryError(undefined);
-  }, [keyRollMutation.error]);
+  }, [keyRollMutation.isLoading]);
 
-  const handleError = (error: unknown) => {
+  const handleMutationComplete = (error: unknown) => {
     if (!error) {
       setQueryError(undefined);
       return;
@@ -184,7 +184,7 @@ const ConsumerControl = ({
       <div className="bg-white rounded-b-lg p-4">
         {consumer.apiKeys.map((k) => (
           <KeyControl
-            onError={handleError}
+            onMutationComplete={handleMutationComplete}
             key={k.id}
             apiKey={k}
             consumerName={consumer.name}
