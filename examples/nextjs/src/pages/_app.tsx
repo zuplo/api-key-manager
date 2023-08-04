@@ -1,4 +1,5 @@
 import "@/styles/globals.css";
+import "../../../../packages/react/dist/index.css";
 import { Auth0Provider } from "@auth0/auth0-react";
 import type { AppProps } from "next/app";
 import { getRequiredEnvVar } from "../env";

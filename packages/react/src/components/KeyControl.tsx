@@ -1,12 +1,14 @@
 import dayjs from "dayjs";
 import localizedFormat from "dayjs/plugin/localizedFormat";
 import relativeTime from "dayjs/plugin/relativeTime";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import {
   CheckIcon,
   DocumentDuplicateIcon,
   EyeIcon,
   EyeSlashIcon,
+  Spinner,
+  TrashIcon,
 } from "../icons";
 import { ApiKey } from "../interfaces";
 import { useQueryEngineContext } from "../useQueryEngineContext";
@@ -14,6 +16,7 @@ import { useQueryEngineContext } from "../useQueryEngineContext";
 interface KeyControlProps {
   consumerName: string;
   apiKey: ApiKey;
+  onError: (error: unknown) => void;
 }
 
 dayjs.extend(relativeTime);
@@ -30,11 +33,10 @@ function mask(value: string, mask: boolean) {
   return maskedPart + lastEightChars;
 }
 
-const KeyControl = ({ apiKey }: KeyControlProps) => {
+const KeyControl = ({ apiKey, consumerName, onError }: KeyControlProps) => {
   const [masked, setMasked] = useState<boolean>(true);
   const [copied, setCopied] = useState<boolean>(false);
-  const { useDeleteKeyMutation, useRollKeyMutation } = useQueryEngineContext();
-  const keyRollMutation = useRollKeyMutation();
+  const { useDeleteKeyMutation } = useQueryEngineContext();
   const deleteKeyMutation = useDeleteKeyMutation();
 
   function copy(value: string) {
@@ -45,50 +47,30 @@ const KeyControl = ({ apiKey }: KeyControlProps) => {
     }, 2000);
   }
 
-  // function rollKey() {
-  //   keyRollMutation.mutate({
-  //     consumerName: consumerName,
-  //     // TODO - provide options, expire in 7 days for now
-  //     expiresOn: new Date(Date.now() + 1000 * 60 * 60 * 24 * 7),
-  //   });
-  // }
+  useEffect(() => {
+    onError(deleteKeyMutation.error);
+  }, [deleteKeyMutation.error]);
 
-  // function deleteKey() {
-  //   deleteKeyMutation.mutate({
-  //     consumerName: consumerName,
-  //     keyId: apiKey.id,
-  //   });
-  // }
+  function handleDeleteKey() {
+    deleteKeyMutation.mutate({
+      consumerName: consumerName,
+      keyId: apiKey.id,
+    });
+  }
 
-  // if there is an expiry, show the delete key operation
-  // const menuItems = apiKey.expiresOn
-  //   ? [
-  //       {
-  //         label: "Delete Key",
-  //         action: () => {
-  //           deleteKey();
-  //         },
-  //       },
-  //     ]
-  //   : [
-  //       {
-  //         label: "Roll Key",
-  //         action: () => {
-  //           rollKey();
-  //         },
-  //       },
-  //     ];
-
-  const keyMutating = keyRollMutation.isLoading || deleteKeyMutation.isLoading;
+  const keyMutating = deleteKeyMutation.isLoading;
 
   return (
     <div>
       <div className="flex flex-row justify-between items-center">
-        <div className="font-mono py-2 mr-2">{mask(apiKey.key, masked)}</div>
+        <div className="font-mono py-2 mr-2 text-zinc-800">
+          {mask(apiKey.key, masked)}
+        </div>
 
-        <div className="flex gap-x-1 justify-end text-gray-700">
+        <div className="flex gap-x-1 justify-end text-zinc-500">
           <button
-            className="rounded p-1 hover:bg-gray-200"
+            title="Copy Key"
+            className="rounded p-1 hover:bg-slate-200"
             onClick={() => copy(apiKey.key)}
           >
             {copied ? (
@@ -98,7 +80,7 @@ const KeyControl = ({ apiKey }: KeyControlProps) => {
             )}
           </button>
           <button
-            className="rounded p-1 hover:bg-gray-200"
+            className="rounded p-1 hover:bg-slate-200"
             title={masked ? "Show Key" : "Hide Key"}
             onClick={() => {
               setMasked(!masked);
@@ -113,12 +95,13 @@ const KeyControl = ({ apiKey }: KeyControlProps) => {
           {apiKey.expiresOn ? (
             keyMutating ? (
               <div className="p-2">
-                <div>TODO: Spinner</div>
+                <Spinner className="h-4 w-4 animate-spin" />
               </div>
             ) : (
               <button
                 title="Delete Key"
-                className="rounded p-1 hover:bg-gray-200"
+                onClick={handleDeleteKey}
+                className="rounded p-1 hover:bg-slate-200"
               >
                 <TrashIcon className="h-5 w-5" />
               </button>
@@ -127,12 +110,12 @@ const KeyControl = ({ apiKey }: KeyControlProps) => {
         </div>
       </div>
 
-      <div className="text-xs text-gray-600 flex flex-row items-center gap-x-1 -mt-2 mb-2">
-        <div className="text-gray-400">
+      <div className="text-xs flex flex-row items-center gap-x-1 -mt-2 mb-2">
+        <div className="text-zinc-400">
           created {dayjs(apiKey.createdOn).fromNow()}
-          {apiKey.createdOn && ","}
+          {apiKey.expiresOn && ","}
         </div>
-        <div className="text-red-700">
+        <div className="text-red-500">
           {apiKey.expiresOn && `expires ${dayjs(apiKey.expiresOn).fromNow()}`}
         </div>
       </div>

@@ -1,11 +1,12 @@
 import { useEffect, useRef, useState } from "react";
 
 interface Props {
+  disabled?: boolean;
   items: { label: string; action: () => void }[];
   children: JSX.Element;
 }
 
-export function SimpleMenu({ items, children }: Props) {
+export function SimpleMenu({ disabled, items, children }: Props) {
   const [isOpen, setIsOpen] = useState(false);
   const buttonRef = useRef<HTMLButtonElement>(null);
   function click(action: () => void) {
@@ -29,18 +30,23 @@ export function SimpleMenu({ items, children }: Props) {
 
   return (
     <div>
-      <button ref={buttonRef} onClick={toggleOpen} className="mt-1">
+      <button
+        disabled={disabled}
+        ref={buttonRef}
+        onClick={toggleOpen}
+        className="mt-1"
+      >
         {children}
       </button>
       <div className="relative">
         {isOpen && (
           <div className="absolute top-1 right-0 z-50">
-            <div className="bg-white rounded shadow-md p-1">
+            <div className="bg-white text-zinc-800 rounded shadow-md ring-1 ring-zinc-200 p-1">
               {items.map((item) => (
                 <button
                   key={item.label}
                   onClick={() => click(item.action)}
-                  className="whitespace-nowrap rounded hover:bg-gray-200 px-3 py-1"
+                  className="whitespace-nowrap rounded w-full hover:bg-slate-50 px-3 py-1"
                 >
                   {item.label}
                 </button>

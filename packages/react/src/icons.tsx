@@ -108,3 +108,100 @@ export const EyeSlashIcon = (props: { className?: string }) => (
     />
   </svg>
 );
+
+export const EllipsisVerticalIcon = (props: { className?: string }) => (
+  <svg
+    xmlns="http://www.w3.org/2000/svg"
+    fill="none"
+    viewBox="0 0 24 24"
+    strokeWidth={1.5}
+    stroke="currentColor"
+    className="w-6 h-6"
+    {...props}
+  >
+    <path
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      d="M12 6.75a.75.75 0 110-1.5.75.75 0 010 1.5zM12 12.75a.75.75 0 110-1.5.75.75 0 010 1.5zM12 18.75a.75.75 0 110-1.5.75.75 0 010 1.5z"
+    />
+  </svg>
+);
+
+export const TrashIcon = (props: { className?: string }) => (
+  <svg
+    xmlns="http://www.w3.org/2000/svg"
+    fill="none"
+    viewBox="0 0 24 24"
+    strokeWidth={1.5}
+    stroke="currentColor"
+    className="w-6 h-6"
+    {...props}
+  >
+    <path
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      d="M14.74 9l-.346 9m-4.788 0L9.26 9m9.968-3.21c.342.052.682.107 1.022.166m-1.022-.165L18.16 19.673a2.25 2.25 0 01-2.244 2.077H8.084a2.25 2.25 0 01-2.244-2.077L4.772 5.79m14.456 0a48.108 48.108 0 00-3.478-.397m-12 .562c.34-.059.68-.114 1.022-.165m0 0a48.11 48.11 0 013.478-.397m7.5 0v-.916c0-1.18-.91-2.164-2.09-2.201a51.964 51.964 0 00-3.32 0c-1.18.037-2.09 1.022-2.09 2.201v.916m7.5 0a48.667 48.667 0 00-7.5 0"
+    />
+  </svg>
+);
+
+export const Spinner = (props: { className?: string }) => (
+  <svg
+    viewBox="0 0 184 184"
+    version="1.1"
+    xmlns="http://www.w3.org/2000/svg"
+    {...props}
+  >
+    <title>adrian-spinner</title>
+    <g id="Page-1" stroke="none" strokeWidth="1" fill="none" fillRule="evenodd">
+      <g id="adrian-spinner" fill="currentColor">
+        <path
+          d="M92,0 C142.810197,0 184,41.189803 184,92 C184,142.810197 142.810197,184 92,184 C41.189803,184 0,142.810197 0,92 C0,41.189803 41.189803,0 92,0 Z M91.5,29 C56.9822031,29 29,56.9822031 29,91.5 C29,126.017797 56.9822031,154 91.5,154 C126.017797,154 154,126.017797 154,91.5 C154,56.9822031 126.017797,29 91.5,29 Z"
+          id="Combined-Shape"
+          fillOpacity="0.25"
+        ></path>
+        <path
+          d="M92,2.84217094e-14 C142.810197,2.84217094e-14 184,41.189803 184,92 C184,112.297546 177.426828,131.059845 166.293022,146.274359 L141.90644,128.45896 C149.509191,118.107437 154,105.328161 154,91.5 C154,57.0804435 126.176849,29.1593321 91.7945619,29.0006795 L91.7002649,0.000477911916 C91.8001392,0.000159384071 91.900051,2.84217094e-14 92,2.84217094e-14 Z"
+          id="Combined-Shape"
+        ></path>
+      </g>
+    </g>
+  </svg>
+);
+
+export const Save = (props: { className?: string }) => (
+  <svg
+    xmlns="http://www.w3.org/2000/svg"
+    width="24"
+    height="24"
+    viewBox="0 0 24 24"
+    fill="none"
+    stroke="currentColor"
+    strokeWidth="2"
+    strokeLinecap="round"
+    strokeLinejoin="round"
+    {...props}
+  >
+    <path d="M19 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v11a2 2 0 0 1-2 2z"></path>
+    <polyline points="17 21 17 13 7 13 7 21"></polyline>
+    <polyline points="7 3 7 8 15 8"></polyline>
+  </svg>
+);
+
+export const XIcon = (props: { className?: string }) => (
+  <svg
+    xmlns="http://www.w3.org/2000/svg"
+    className="h-6 w-6"
+    fill="none"
+    viewBox="0 0 24 24"
+    stroke="currentColor"
+    strokeWidth={2}
+    {...props}
+  >
+    <path
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      d="M6 18L18 6M6 6l12 12"
+    />
+  </svg>
+);
