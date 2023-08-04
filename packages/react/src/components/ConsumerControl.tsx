@@ -36,7 +36,7 @@ const ConsumerControl = ({
       return;
     }
     setQueryError(undefined);
-  }, [consumerDescriptionMutation.error]);
+  }, [consumerDescriptionMutation.isLoading]);
 
   useEffect(() => {
     if (keyRollMutation.error) {
@@ -44,7 +44,7 @@ const ConsumerControl = ({
       return;
     }
     setQueryError(undefined);
-  }, [keyRollMutation.error]);
+  }, [keyRollMutation.isLoading]);
 
   const handleError = (error: unknown) => {
     if (!error) {
