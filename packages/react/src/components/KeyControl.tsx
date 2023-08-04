@@ -16,7 +16,7 @@ import { useQueryEngineContext } from "../useQueryEngineContext";
 interface KeyControlProps {
   consumerName: string;
   apiKey: ApiKey;
-  onError: (error: unknown) => void;
+  onMutationComplete: (error: unknown) => void;
 }
 
 dayjs.extend(relativeTime);
@@ -33,7 +33,11 @@ function mask(value: string, mask: boolean) {
   return maskedPart + lastEightChars;
 }
 
-const KeyControl = ({ apiKey, consumerName, onError }: KeyControlProps) => {
+const KeyControl = ({
+  apiKey,
+  consumerName,
+  onMutationComplete,
+}: KeyControlProps) => {
   const [masked, setMasked] = useState<boolean>(true);
   const [copied, setCopied] = useState<boolean>(false);
   const { useDeleteKeyMutation } = useQueryEngineContext();
@@ -48,7 +52,7 @@ const KeyControl = ({ apiKey, consumerName, onError }: KeyControlProps) => {
   }
 
   useEffect(() => {
-    onError(deleteKeyMutation.error);
+    onMutationComplete(deleteKeyMutation.error);
     // We use the isLoading flag here to reset the error state whenever the
     // mutation is triggered
   }, [deleteKeyMutation.isLoading]);
