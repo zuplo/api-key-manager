@@ -16,6 +16,7 @@
   "type": "module",
   "exports": {
     "./package.json": "./package.json",
+    "./styles.css": "./dist/index.css",
     ".": {
       "browser": "./dist/index.js",
       "import": "./dist/index.js",
@@ -41,7 +42,7 @@
   },
   "scripts": {
     "build": "tsup",
-    "dev": "tsup --watch",
+    "dev": "tsup --watch .",
     "lint": "eslint .",
     "lint-fix": "eslint . --fix",
     "test": "jest",
@@ -52,7 +53,8 @@
     "react-dom": "^16.8.0 || 18.x"
   },
   "dependencies": {
-    "dayjs": "^1.11.9"
+    "dayjs": "^1.11.9",
+    "postcss-modules": "^6.0.0"
   },
   "devDependencies": {
     "@types/node": "^20.3.1",

@@ -1,8 +1,8 @@
 import { QueryEngineContext } from "../context";
 import { ApiKeyManagerProvider, MenuItem } from "../interfaces";
 import { useProviderQueryEngine } from "../useProviderQueryEngine";
+import styles from "./ApiKeyManager.module.css";
 import ConsumerControl from "./ConsumerControl";
-
 interface Props {
   provider: ApiKeyManagerProvider;
   menuItems?: MenuItem[];
@@ -20,7 +20,7 @@ const ApiKeyManager = ({ provider, menuItems }: Props) => {
   const consumers = query.data?.data;
 
   if (!consumers || consumers.length === 0) {
-    return <div>You have no API keys</div>;
+    return <div className={styles["my-style"]}>You have no API keys</div>;
   }
 
   return (
