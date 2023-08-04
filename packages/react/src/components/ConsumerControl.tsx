@@ -14,9 +14,14 @@ import { SimpleMenu } from "./SimpleMenu";
 interface ConsumerControlProps {
   consumer: Consumer;
   menuItems?: MenuItem[];
+  isLoading: boolean;
 }
 
-const ConsumerControl = ({ consumer, menuItems }: ConsumerControlProps) => {
+const ConsumerControl = ({
+  consumer,
+  menuItems,
+  isLoading,
+}: ConsumerControlProps) => {
   const [edit, setEdit] = useState(false);
   const [queryError, setQueryError] = useState<string>();
   const [description, setDescription] = useState(consumer.description);
@@ -79,7 +84,10 @@ const ConsumerControl = ({ consumer, menuItems }: ConsumerControlProps) => {
   };
 
   const rollKeysMenuItem = {
-    label: "Roll Key(s)",
+    label:
+      consumer.apiKeys.filter((k) => !k.expiresOn).length > 1
+        ? "Roll keys"
+        : "Roll key",
     action: handleRollKey,
   };
 
@@ -137,18 +145,18 @@ const ConsumerControl = ({ consumer, menuItems }: ConsumerControlProps) => {
             </button>
           </div>
         ) : (
-          <div className="m-4 text-zinc-900">
+          <div className="ml-4 text-zinc-900">
             {consumer.description ?? consumer.name}
           </div>
         )}
-        <div className="m-2 mr-3">
-          {keyRollMutation.isLoading ? (
+        <div className="m-2 mt-4 mr-3">
+          {isLoading || keyRollMutation.isLoading ? (
             <div className="p-1">
-              <Spinner className="h-5 w-5 animate-spin" />
+              <Spinner className="h-5 w-5 mb-1.5 animate-spin" />
             </div>
           ) : (
-            <SimpleMenu disabled={edit} items={fancyDropDownMenuItems ?? []}>
-              <div className={`${!edit && "hover:bg-slate-200"} rounded p-1`}>
+            <SimpleMenu items={fancyDropDownMenuItems ?? []}>
+              <div className="hover:bg-slate-200 rounded p-1">
                 <EllipsisVerticalIcon className="h-5 w-5 text-zinc-500" />
               </div>
             </SimpleMenu>
@@ -156,15 +164,15 @@ const ConsumerControl = ({ consumer, menuItems }: ConsumerControlProps) => {
         </div>
       </div>
       {Boolean(queryError) && (
-        <div className="p-2 text-red-600 bg-red-50 text-sm">
-          <div className="flex flex-row justify-between items-center">
+        <div className="p-4 text-red-600 bg-red-50 text-sm">
+          <div className="flex flex-row justify-between">
             <div className="flex flex-row items-center">
               <XCircleIcon className="h-4 w-4 mr-1" />
               <span className="font-bold">Error</span>
             </div>
             <button
               title="Dismiss error"
-              className="text-zinc-700"
+              className="text-zinc-700 hover:bg-red-100 rounded p-2"
               onClick={() => setQueryError(undefined)}
             >
               <XIcon className="h-4 w-4" />
