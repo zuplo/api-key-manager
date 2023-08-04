@@ -1,6 +1,6 @@
 import { ApiKeyManagerProvider } from "./interfaces";
 
-export class DefaultApiKeyManagerProvider implements ApiKeyManagerProvider {
+export class StandardApiKeyManagerProvider implements ApiKeyManagerProvider {
   constructor(baseUrl: string, token: string) {
     this.baseUrl = baseUrl;
     this.token = token;

@@ -1,13 +1,11 @@
 import { Inter } from "next/font/google";
 
 import { useAuth0 } from "@auth0/auth0-react";
-import ApiKeyManager, {
-  DefaultApiKeyManagerProvider,
-} from "@zuplo/react-api-key-manager";
 import { useEffect, useState } from "react";
 import { getRequiredEnvVar } from "../env";
-
-const inter = Inter({ subsets: ["latin"] });
+import ApiKeyManager, {
+  StandardApiKeyManagerProvider,
+} from "@zuplo/react-api-key-manager";
 
 export default function Home() {
   const { isAuthenticated, getAccessTokenSilently } = useAuth0();
@@ -21,7 +19,6 @@ export default function Home() {
           audience,
         },
       });
-      console.log(token);
       setAccessToken(token);
     };
 
@@ -39,7 +36,7 @@ export default function Home() {
 
   const apiUrl = getRequiredEnvVar("NEXT_PUBLIC_API_URL");
 
-  const provider = new DefaultApiKeyManagerProvider(apiUrl, accessToken);
+  const provider = new StandardApiKeyManagerProvider(apiUrl, accessToken);
 
   return (
     <main>
