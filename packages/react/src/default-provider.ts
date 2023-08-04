@@ -31,19 +31,16 @@ export class StandardApiKeyManagerProvider implements ApiKeyManagerProvider {
 
     const isExpectedResponse = response.status === okStatus;
     const contentType = response.headers.get("content-type");
-    console.log("content type", contentType, url);
     if (
       contentType?.includes("application/json") ||
       contentType?.includes("application/problem+json")
     ) {
-      console.log("getting the response", url);
       let responseError: Error;
       try {
         const jsonData = await response.json();
         if (isExpectedResponse) {
           return jsonData;
         }
-        console.log("we got an error", url);
         if ("title" in jsonData || "detail" in jsonData) {
           const { title, detail } = jsonData;
 
