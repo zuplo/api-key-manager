@@ -94,8 +94,8 @@ const KeyControl = ({ apiKey, consumerName, onError }: KeyControlProps) => {
           </button>
           {apiKey.expiresOn ? (
             keyMutating ? (
-              <div className="p-2">
-                <Spinner className="h-4 w-4 animate-spin" />
+              <div className="p-1">
+                <Spinner className="h-5 w-5 animate-spin" />
               </div>
             ) : (
               <button

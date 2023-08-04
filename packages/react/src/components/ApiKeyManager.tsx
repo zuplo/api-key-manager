@@ -45,7 +45,12 @@ const ApiKeyManager = ({ provider, menuItems }: Props) => {
     <QueryEngineContext.Provider value={queryEngine}>
       {consumers.map((c) => {
         return (
-          <ConsumerControl key={c.name} consumer={c} menuItems={menuItems} />
+          <ConsumerControl
+            key={c.name}
+            consumer={c}
+            menuItems={menuItems}
+            isLoading={query.isLoading}
+          />
         );
       })}
     </QueryEngineContext.Provider>

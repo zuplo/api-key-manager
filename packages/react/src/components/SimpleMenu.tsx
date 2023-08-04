@@ -30,23 +30,18 @@ export function SimpleMenu({ disabled, items, children }: Props) {
 
   return (
     <div>
-      <button
-        disabled={disabled}
-        ref={buttonRef}
-        onClick={toggleOpen}
-        className="mt-1"
-      >
+      <button disabled={disabled} ref={buttonRef} onClick={toggleOpen}>
         {children}
       </button>
       <div className="relative">
         {isOpen && (
-          <div className="absolute top-1 right-0 z-50">
+          <div className="absolute top-0 right-0 z-50">
             <div className="bg-white text-zinc-800 rounded shadow-md ring-1 ring-zinc-200 p-1">
               {items.map((item) => (
                 <button
                   key={item.label}
                   onClick={() => click(item.action)}
-                  className="whitespace-nowrap rounded w-full hover:bg-slate-50 px-3 py-1"
+                  className="whitespace-nowrap rounded w-full hover:bg-slate-50 px-3 py-1 text-right"
                 >
                   {item.label}
                 </button>
