@@ -49,9 +49,9 @@ const KeyControl = ({ apiKey, consumerName, onError }: KeyControlProps) => {
 
   useEffect(() => {
     onError(deleteKeyMutation.error);
-    // We use the wasSuccessful flag here to reset the error state whenever the
+    // We use the isLoading flag here to reset the error state whenever the
     // mutation is triggered
-  }, [deleteKeyMutation.wasSuccessful]);
+  }, [deleteKeyMutation.isLoading]);
 
   function handleDeleteKey() {
     deleteKeyMutation.mutate({
