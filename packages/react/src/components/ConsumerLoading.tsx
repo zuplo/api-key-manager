@@ -19,7 +19,7 @@ const ConsumerLoading = () => {
 const KeyLoading = () => {
   return (
     <div className="flex w-full justify-between">
-      <div className="h-4 my-7 w-96 animate-pulse rounded-lg bg-gray-400" />
+      <div className="h-4 mt-6 mb-8 w-[440px] animate-pulse rounded-lg bg-gray-300" />
     </div>
   );
 };
