@@ -145,6 +145,7 @@ const ConsumerControl = ({ consumer, menuItems }: ConsumerControlProps) => {
           {keyRollMutation.isLoading ? (
             <div className="p-1">
               <Spinner className="h-5 w-5 animate-spin" />
+              div{" "}
             </div>
           ) : (
             <SimpleMenu disabled={edit} items={fancyDropDownMenuItems ?? []}>

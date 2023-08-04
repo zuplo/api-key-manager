@@ -5,6 +5,7 @@ import ConsumerControl from "../components/ConsumerControl";
 import ConsumerLoading from "../components/ConsumerLoading";
 import { XCircleIcon } from "../icons";
 
+import styles from "./ApiKeyManager.module.css";
 interface Props {
   provider: ApiKeyManagerProvider;
   menuItems?: MenuItem[];
@@ -37,7 +38,7 @@ const ApiKeyManager = ({ provider, menuItems }: Props) => {
   const consumers = query.data?.data;
 
   if (!consumers || consumers.length === 0) {
-    return <div>You have no API keys</div>;
+    return <div className={styles["my-style"]}>You have no API keys</div>;
   }
 
   return (

@@ -50,7 +50,7 @@ export class StandardApiKeyManagerProvider implements ApiKeyManagerProvider {
   };
 
   rollKey = async (consumerName: string, expiresOn: Date) => {
-    await this.innerFetch(`/consumers/${consumerName}/roll`, 200, "POST", {
+    await this.innerFetch(`/consumers/${consumerName}/roll`, 204, "POST", {
       expiresOn,
     });
   };
