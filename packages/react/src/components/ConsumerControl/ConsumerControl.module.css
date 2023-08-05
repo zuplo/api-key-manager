@@ -1,0 +1,92 @@
+/* ConsumerControl.module.css */
+.consumer-control-container {
+  @apply rounded-lg bg-slate-50 border-zinc-200 border mb-5;
+}
+
+.consumer-control-header {
+  @apply flex flex-row justify-between border-b border-zinc-200 items-center;
+}
+
+.consumer-control-input-container {
+  @apply flex flex-row w-full;
+}
+
+.consumer-control-input {
+  @apply flex-1 disabled:opacity-50 rounded border border-gray-400 m-1 ml-2 my-2 px-2 bg-white w-full py-1;
+}
+
+.consumer-control-button {
+  @apply hover:bg-slate-300 text-zinc-700 px-2 bg-slate-200 rounded flex flex-row items-center text-sm m-1 my-2 h-8;
+}
+
+.consumer-control-spinner-container {
+  @apply p-1;
+}
+
+.consumer-control-spinner {
+  @apply h-5 w-5 mb-1.5 animate-spin;
+}
+
+.consumer-control-save-icon {
+  @apply h-4 w-auto mr-1;
+}
+
+.consumer-control-cancel-icon {
+  @apply h-4 w-auto mr-1;
+}
+
+.consumer-control-description {
+  @apply ml-4 text-zinc-900;
+}
+
+.consumer-menu-button-wrapper {
+  @apply m-2 mt-4 mr-3;
+}
+
+.consumer-control-menu-button {
+  @apply hover:bg-slate-200 rounded p-1;
+}
+
+.consumer-control-menu-icon {
+  @apply h-5 w-5 text-zinc-500;
+}
+
+.consumer-control-error-container {
+  @apply p-4 text-red-600 bg-red-50 text-sm;
+}
+
+.consumer-control-error-header-wrapper {
+  @apply flex flex-row justify-between;
+}
+
+.consumer-control-error-header {
+  @apply flex flex-row items-center;
+}
+
+.consumer-control-error-icon {
+  @apply h-4 w-4 mr-1;
+}
+
+.consumer-control-error-leading-text {
+  @apply font-bold;
+}
+
+.consumer-control-error-dismiss {
+  @apply text-zinc-700 hover:bg-red-100 rounded p-2;
+}
+
+.consumer-control-error-dismiss-icon {
+  @apply h-4 w-4;
+}
+
+.consumer-control-error-text {
+  @apply pl-5 text-red-500;
+}
+
+.consumer-control-content {
+  @apply bg-white rounded-b-lg p-4;
+}
+
+.consumer-control-key-control {
+  @apply mb-3;
+}

@@ -5,10 +5,12 @@ interface Props {
   items: { label: string; action: () => void }[];
   children: JSX.Element;
 }
+import styles from "./SimpleMenu.module.css"; // Import the CSS module
 
 export function SimpleMenu({ disabled, items, children }: Props) {
   const [isOpen, setIsOpen] = useState(false);
   const buttonRef = useRef<HTMLButtonElement>(null);
+
   function click(action: () => void) {
     setIsOpen(false);
     action();
@@ -30,18 +32,23 @@ export function SimpleMenu({ disabled, items, children }: Props) {
 
   return (
     <div>
-      <button disabled={disabled} ref={buttonRef} onClick={toggleOpen}>
+      <button
+        disabled={disabled}
+        ref={buttonRef}
+        onClick={toggleOpen}
+        className={styles["simple-menu-button"]}
+      >
         {children}
       </button>
-      <div className="relative">
+      <div className={styles["simple-menu-wrapper"]}>
         {isOpen && (
-          <div className="absolute top-0 right-0 z-50">
-            <div className="bg-white text-zinc-800 rounded shadow-md ring-1 ring-zinc-200 p-1">
+          <div className={styles["simple-menu-dialog"]}>
+            <div className={styles["simple-menu-dropdown"]}>
               {items.map((item) => (
                 <button
                   key={item.label}
                   onClick={() => click(item.action)}
-                  className="whitespace-nowrap rounded w-full hover:bg-slate-50 px-3 py-1 text-right"
+                  className={styles["simple-menu-item-button"]}
                 >
                   {item.label}
                 </button>

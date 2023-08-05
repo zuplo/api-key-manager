@@ -1,0 +1,52 @@
+/* KeyControl.module.css */
+.key-control-container {
+  @apply flex flex-row justify-between items-center;
+}
+
+.key-control-key {
+  @apply font-mono text-ellipsis overflow-hidden py-2 mr-2 text-zinc-800;
+}
+
+.key-control-buttons {
+  @apply flex gap-x-1 justify-end text-zinc-500;
+}
+
+.key-control-button {
+  @apply rounded p-1 hover:bg-slate-200;
+}
+
+.key-control-button-active {
+  @apply h-5 w-5 text-green-400;
+}
+
+.key-control-spinner-icon {
+  @apply h-5 w-5 animate-spin;
+}
+
+.key-control-button-duplicate {
+  @apply h-5 w-5;
+}
+
+.key-control-button-eye {
+  @apply h-5 w-5;
+}
+
+.key-control-button-slash {
+  @apply h-5 w-5;
+}
+
+.key-control-spinner {
+  @apply p-1;
+}
+
+.key-control-created {
+  @apply text-xs flex flex-row items-center gap-x-1 -mt-2 mb-2;
+}
+
+.key-control-created-text {
+  @apply text-zinc-400;
+}
+
+.key-control-expires {
+  @apply text-red-500;
+}

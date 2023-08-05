@@ -1,3 +1,4 @@
+import styles from "./icons.module.css";
 export const XCircleIcon = (props: { className?: string }) => (
   <svg
     xmlns="http://www.w3.org/2000/svg"
@@ -5,7 +6,7 @@ export const XCircleIcon = (props: { className?: string }) => (
     viewBox="0 0 24 24"
     strokeWidth={1.5}
     stroke="currentColor"
-    className="w-6 h-6"
+    className={styles["icon"]}
     {...props}
   >
     <path
@@ -23,7 +24,7 @@ export const EllipsisHorizontalIcon = (props: { className?: string }) => (
     viewBox="0 0 24 24"
     strokeWidth={1.5}
     stroke="currentColor"
-    className="w-6 h-6"
+    className={styles["icon"]}
     {...props}
   >
     <path
@@ -41,7 +42,7 @@ export const CheckIcon = (props: { className?: string }) => (
     viewBox="0 0 24 24"
     strokeWidth={1.5}
     stroke="currentColor"
-    className="w-6 h-6"
+    className={styles["icon"]}
     {...props}
   >
     <path
@@ -59,7 +60,7 @@ export const DocumentDuplicateIcon = (props: { className?: string }) => (
     viewBox="0 0 24 24"
     strokeWidth={1.5}
     stroke="currentColor"
-    className="w-6 h-6"
+    className={styles["icon"]}
     {...props}
   >
     <path
@@ -76,7 +77,7 @@ export const EyeIcon = (props: { className?: string }) => (
     viewBox="0 0 24 24"
     strokeWidth={1.5}
     stroke="currentColor"
-    className="w-6 h-6"
+    className={styles["icon"]}
     {...props}
   >
     <path
@@ -98,7 +99,7 @@ export const EyeSlashIcon = (props: { className?: string }) => (
     viewBox="0 0 24 24"
     strokeWidth={1.5}
     stroke="currentColor"
-    className="w-6 h-6"
+    className={styles["icon"]}
     {...props}
   >
     <path
@@ -116,7 +117,7 @@ export const EllipsisVerticalIcon = (props: { className?: string }) => (
     viewBox="0 0 24 24"
     strokeWidth={1.5}
     stroke="currentColor"
-    className="w-6 h-6"
+    className={styles["icon"]}
     {...props}
   >
     <path
@@ -134,7 +135,7 @@ export const TrashIcon = (props: { className?: string }) => (
     viewBox="0 0 24 24"
     strokeWidth={1.5}
     stroke="currentColor"
-    className="w-6 h-6"
+    className={styles["icon"]}
     {...props}
   >
     <path
@@ -191,7 +192,7 @@ export const Save = (props: { className?: string }) => (
 export const XIcon = (props: { className?: string }) => (
   <svg
     xmlns="http://www.w3.org/2000/svg"
-    className="h-6 w-6"
+    className={styles["icon"]}
     fill="none"
     viewBox="0 0 24 24"
     stroke="currentColor"
