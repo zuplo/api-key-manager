@@ -1,5 +1,6 @@
 import { useEffect, useRef, useState } from "react";
-import styles from "./SimpleMenu.module.css"; // Import the CSS module
+
+import styles from "./SimpleMenu.module.css";
 
 interface Props {
   disabled?: boolean;

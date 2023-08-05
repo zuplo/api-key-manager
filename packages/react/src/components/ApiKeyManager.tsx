@@ -1,21 +1,21 @@
-import { QueryEngineContext } from "../../context";
-import { XCircleIcon } from "../../icons";
-import { ApiKeyManagerProvider, MenuItem } from "../../interfaces";
-import { useProviderQueryEngine } from "../../useProviderQueryEngine";
-import ConsumerLoading from "../ConsumerControl/ConsumerLoading";
+import { QueryEngineContext } from "../context";
+import { XCircleIcon } from "../icons";
+import { ApiKeyManagerProvider, MenuItem } from "../interfaces";
+import { useProviderQueryEngine } from "../useProviderQueryEngine";
+import ConsumerControl from "./ConsumerControl";
+import ConsumerLoading from "./ConsumerLoading";
 
-import ConsumerControl from "../ConsumerControl/ConsumerControl";
 import styles from "./ApiKeyManager.module.css";
+
 interface Props {
   provider: ApiKeyManagerProvider;
   menuItems?: MenuItem[];
 }
 
-const ApiKeyManager = ({ provider, menuItems }: Props) => {
+function ApiKeyManager({ provider, menuItems }: Props) {
   const queryEngine = useProviderQueryEngine(provider);
   const query = queryEngine.useMyConsumersQuery();
-  const doo = true;
-  if ((!query.data && query.isLoading) || !doo) {
+  if (!query.data && query.isLoading) {
     return <ConsumerLoading />;
   }
 
@@ -38,7 +38,7 @@ const ApiKeyManager = ({ provider, menuItems }: Props) => {
   const consumers = query.data?.data;
 
   if (!consumers || consumers.length === 0) {
-    return <div className={styles["my-style"]}>You have no API keys</div>;
+    return <div>You have no API keys</div>;
   }
 
   return (
@@ -55,6 +55,14 @@ const ApiKeyManager = ({ provider, menuItems }: Props) => {
       })}
     </QueryEngineContext.Provider>
   );
-};
+}
 
-export default ApiKeyManager;
+function ApiKeyManagerWrapper(props: Props) {
+  return (
+    <div className="zp-key-manager">
+      <ApiKeyManager {...props} />
+    </div>
+  );
+}
+
+export default ApiKeyManagerWrapper;

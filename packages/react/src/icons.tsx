@@ -1,4 +1,5 @@
 import styles from "./icons.module.css";
+
 export const XCircleIcon = (props: { className?: string }) => (
   <svg
     xmlns="http://www.w3.org/2000/svg"

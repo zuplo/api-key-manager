@@ -9,10 +9,12 @@ import {
   EyeSlashIcon,
   Spinner,
   TrashIcon,
-} from "../../icons";
-import { ApiKey } from "../../interfaces";
-import { useQueryEngineContext } from "../../useQueryEngineContext";
+} from "../icons";
+import { ApiKey } from "../interfaces";
+import { useQueryEngineContext } from "../useQueryEngineContext";
+
 import styles from "./KeyControl.module.css";
+
 interface KeyControlProps {
   consumerName: string;
   apiKey: ApiKey;

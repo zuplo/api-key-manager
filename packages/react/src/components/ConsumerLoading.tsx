@@ -1,5 +1,6 @@
-import { EllipsisVerticalIcon } from "../../icons";
-import styles from "./ConsumerLoading.module.css"; // Import the CSS module
+import { EllipsisVerticalIcon } from "../icons";
+
+import styles from "./ConsumerLoading.module.css";
 
 const ConsumerLoading = () => {
   return (

@@ -2,28 +2,29 @@ import autoprefixer from "autoprefixer";
 import fs from "fs/promises";
 import path from "path";
 import postcss from "postcss";
+import postcssVariables from "postcss-css-variables";
 import postcssModules from "postcss-modules";
 import tailwindcss from "tailwindcss";
 import { defineConfig } from "tsup";
 import config from "./tailwind.config.js";
 
-const cfg = {
-  splitting: false,
-  sourcemap: true,
-  clean: true,
-  treeshake: false,
-  dts: true,
-  format: ["esm", "cjs"],
-};
-
-export default defineConfig([
-  {
-    ...cfg,
+/**
+ * @param {{ postcssPlugins?: postcss.AcceptedPlugin[] }} options
+ * @returns {import('tsup').Options}
+ * */
+function getConfig({ postcssPlugins } = {}) {
+  return {
     entry: {
       index: "src/index.tsx",
     },
     external: ["react", "dayjs"],
-    outDir: "dist",
+    splitting: false,
+    sourcemap: true,
+    // eslint-disable-next-line no-undef
+    clean: process.env.NODE_ENV === "PRODUCTION",
+    treeshake: false,
+    dts: true,
+    format: ["esm", "cjs"],
     esbuildOptions: (options) => {
       // Append "use client" to the top of the react entry point
       options.banner = {
@@ -54,12 +55,12 @@ export default defineConfig([
               let cssModule = {};
               const result = await postcss([
                 postcssModules({
+                  generateScopedName: "zp-key-manager--[local]",
                   getJSON(_, json) {
                     cssModule = json;
                   },
                 }),
-                tailwindcss(config),
-                autoprefixer(),
+                ...(postcssPlugins ?? []),
               ]).process(source, { from: pluginData.pathDir });
 
               return {
@@ -88,5 +89,28 @@ export default defineConfig([
         },
       },
     ],
+  };
+}
+
+export default defineConfig([
+  {
+    ...getConfig({
+      postcssPlugins: [tailwindcss(config), postcssVariables(), autoprefixer()],
+    }),
+    outDir: "dist",
   },
+  // eslint-disable-next-line no-undef
+  ...(process.env.NODE_ENV === "PRODUCTION"
+    ? [
+        {
+          ...getConfig(),
+          outDir: "dist-tailwind",
+          onSuccess: async () => {
+            const source = path.join("dist-tailwind/index.css");
+            const dest = path.join("dist/tailwind.css");
+            await fs.copyFile(source, dest);
+          },
+        },
+      ]
+    : []),
 ]);

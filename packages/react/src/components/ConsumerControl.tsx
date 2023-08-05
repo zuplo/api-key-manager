@@ -5,11 +5,12 @@ import {
   Spinner,
   XCircleIcon,
   XIcon,
-} from "../../icons";
-import { Consumer, MenuItem } from "../../interfaces";
-import { useQueryEngineContext } from "../../useQueryEngineContext";
-import KeyControl from "../KeyControl/KeyControl";
-import { SimpleMenu } from "../SimpleMenu/SimpleMenu";
+} from "../icons";
+import { Consumer, MenuItem } from "../interfaces";
+import { useQueryEngineContext } from "../useQueryEngineContext";
+import KeyControl from "./KeyControl";
+import { SimpleMenu } from "./SimpleMenu";
+
 import styles from "./ConsumerControl.module.css";
 
 interface ConsumerControlProps {
