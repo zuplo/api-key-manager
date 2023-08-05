@@ -1,0 +1,21 @@
+/* SimpleMenu.module.css */
+
+.simple-menu-button {
+  @apply focus:outline-none;
+}
+
+.simple-menu-wrapper {
+  @apply relative;
+}
+
+.simple-menu-dialog {
+  @apply absolute top-0 right-0 z-50;
+}
+
+.simple-menu-item-button {
+  @apply whitespace-nowrap rounded w-full hover:bg-slate-50 px-3 py-1 text-right;
+}
+
+.simple-menu-dropdown {
+  @apply bg-white text-zinc-800 rounded shadow-md ring-1 ring-zinc-200 p-1;
+}

@@ -5,11 +5,12 @@ import {
   Spinner,
   XCircleIcon,
   XIcon,
-} from "../icons";
-import { Consumer, MenuItem } from "../interfaces";
-import { useQueryEngineContext } from "../useQueryEngineContext";
-import KeyControl from "./KeyControl";
-import { SimpleMenu } from "./SimpleMenu";
+} from "../../icons";
+import { Consumer, MenuItem } from "../../interfaces";
+import { useQueryEngineContext } from "../../useQueryEngineContext";
+import { SimpleMenu } from "../SimpleMenu/SimpleMenu";
+import styles from "./ConsumerControl.module.css";
+import KeyControl from "../KeyControl/KeyControl";
 
 interface ConsumerControlProps {
   consumer: Consumer;
@@ -105,10 +106,10 @@ const ConsumerControl = ({
   ];
 
   return (
-    <div className="rounded-lg bg-slate-50 border-zinc-200 border mb-5">
-      <div className="flex flex-row justify-between border-b border-zinc-200 items-center">
+    <div className={styles["consumer-control-container"]}>
+      <div className={styles["consumer-control-header"]}>
         {edit ? (
-          <div className="flex flex-row w-full">
+          <div className={styles["consumer-control-input-container"]}>
             <input
               autoFocus={true}
               onFocus={(event) => event.target.select()}
@@ -117,71 +118,79 @@ const ConsumerControl = ({
               }}
               disabled={consumerDescriptionMutation.isLoading}
               type="text"
-              className="flex-1 disabled:opacity-50 rounded border border-gray-400 m-1 ml-2 my-2 px-2 bg-white w-full py-1"
+              className={styles["consumer-control-input"]}
               onChange={(e) => setDescription(e.target.value)}
               defaultValue={consumer.description}
             />
             <button
-              className="hover:bg-slate-300 text-zinc-700 px-2 flex-0 bg-slate-200 rounded flex flex-row items-center text-sm m-1 my-2 h-8"
+              className={styles["consumer-control-button"]}
               disabled={consumerDescriptionMutation.isLoading}
               onClick={handleLabelSave}
             >
               {consumerDescriptionMutation.isLoading ? (
-                <div className="mr-2">
-                  <Spinner className="w-4 h-4 animate-spin" />
+                <div className={styles["consumer-control-spinner-container"]}>
+                  <Spinner className={styles["consumer-control-spinner"]} />
                 </div>
               ) : (
-                <Save className="h-4 w-auto mr-1" />
+                <Save className={styles["consumer-control-save-icon"]} />
               )}
               <span>Save</span>
             </button>
             <button
-              className="hover:bg-slate-300 disabled:opacity-50 text-zinc-700 px-2 flex-0 bg-slate-200 rounded flex flex-row items-center text-sm m-1 my-2 h-8"
+              className={styles["consumer-control-button"]}
               disabled={consumerDescriptionMutation.isLoading}
               onClick={() => setEdit(false)}
             >
-              <XIcon className="h-4 w-auto mr-1" />
+              <XIcon className={styles["consumer-control-cancel-icon"]} />
               <span>Cancel</span>
             </button>
           </div>
         ) : (
-          <div className="ml-4 text-zinc-900">
+          <div className={styles["consumer-control-description"]}>
             {consumer.description ?? consumer.name}
           </div>
         )}
-        <div className="m-2 mt-4 mr-3">
+        <div className={styles["consumer-menu-button-wrapper"]}>
           {isLoading || keyRollMutation.isLoading ? (
-            <div className="p-1">
-              <Spinner className="h-5 w-5 mb-1.5 animate-spin" />
+            <div className={styles["consumer-control-spinner-container"]}>
+              <Spinner className={styles["consumer-control-spinner"]} />
             </div>
           ) : (
             <SimpleMenu items={fancyDropDownMenuItems ?? []}>
-              <div className="hover:bg-slate-200 rounded p-1">
-                <EllipsisVerticalIcon className="h-5 w-5 text-zinc-500" />
+              <div className={styles["consumer-control-menu-button"]}>
+                <EllipsisVerticalIcon
+                  className={styles["consumer-control-menu-icon"]}
+                />
               </div>
             </SimpleMenu>
           )}
         </div>
       </div>
       {Boolean(queryError) && (
-        <div className="p-4 text-red-600 bg-red-50 text-sm">
-          <div className="flex flex-row justify-between">
-            <div className="flex flex-row items-center">
-              <XCircleIcon className="h-4 w-4 mr-1" />
-              <span className="font-bold">Error</span>
+        <div className={styles["consumer-control-error-container"]}>
+          <div className={styles["consumer-control-error-header-wrapper"]}>
+            <div className={styles["consumer-control-error-header"]}>
+              <XCircleIcon className={styles["consumer-control-error-icon"]} />
+              <span className={styles["consumer-control-error-leading-text"]}>
+                Error
+              </span>
             </div>
             <button
               title="Dismiss error"
-              className="text-zinc-700 hover:bg-red-100 rounded p-2"
+              className={styles["consumer-control-error-dismiss"]}
               onClick={() => setQueryError(undefined)}
             >
-              <XIcon className="h-4 w-4" />
+              <XIcon
+                className={styles["consumer-control-error-dismiss-icon"]}
+              />
             </button>
           </div>
-          <div className="pl-5 text-red-500">&quot;{queryError}&quot;</div>
+          <div className={styles["consumer-control-error-text"]}>
+            &quot;{queryError}&quot;
+          </div>
         </div>
       )}
-      <div className="bg-white rounded-b-lg p-4">
+      <div className={styles["consumer-control-content"]}>
         {consumer.apiKeys.map((k) => (
           <KeyControl
             onMutationComplete={handleMutationComplete}

@@ -9,10 +9,10 @@ import {
   EyeSlashIcon,
   Spinner,
   TrashIcon,
-} from "../icons";
-import { ApiKey } from "../interfaces";
-import { useQueryEngineContext } from "../useQueryEngineContext";
-
+} from "../../icons";
+import { ApiKey } from "../../interfaces";
+import { useQueryEngineContext } from "../../useQueryEngineContext";
+import styles from "./KeyControl.module.css";
 interface KeyControlProps {
   consumerName: string;
   apiKey: ApiKey;
@@ -68,61 +68,63 @@ const KeyControl = ({
 
   return (
     <div>
-      <div className="flex flex-row justify-between items-center">
+      <div className={styles["key-control-container"]}>
         <span
           title={masked ? undefined : apiKey.key}
-          className="font-mono text-ellipsis overflow-hidden py-2 mr-2 text-zinc-800"
+          className={styles["key-control-key"]}
         >
           {mask(apiKey.key, masked)}
         </span>
-        <div className="flex gap-x-1 justify-end text-zinc-500">
+        <div className={styles["key-control-buttons"]}>
           <button
             title="Copy Key"
-            className="rounded p-1 hover:bg-slate-200"
+            className={styles["key-control-button"]}
             onClick={() => copy(apiKey.key)}
           >
             {copied ? (
-              <CheckIcon className="text-green-500 h-5 w-5" />
+              <CheckIcon className={styles["key-control-button-active"]} />
             ) : (
-              <DocumentDuplicateIcon className="h-5 w-5" />
+              <DocumentDuplicateIcon
+                className={styles["key-control-button-duplicate"]}
+              />
             )}
           </button>
           <button
-            className="rounded p-1 hover:bg-slate-200"
+            className={styles["key-control-button"]}
             title={masked ? "Show Key" : "Hide Key"}
             onClick={() => {
               setMasked(!masked);
             }}
           >
             {masked ? (
-              <EyeIcon className="h-5 w-5" />
+              <EyeIcon className={styles["key-control-button-eye"]} />
             ) : (
-              <EyeSlashIcon className="h-5 w-5" />
+              <EyeSlashIcon className={styles["key-control-button-slash"]} />
             )}
           </button>
           {apiKey.expiresOn ? (
             keyMutating ? (
-              <div className="p-1">
-                <Spinner className="h-5 w-5 animate-spin" />
+              <div className={styles["key-control-spinner"]}>
+                <Spinner className={styles["key-control-spinner-icon"]} />
               </div>
             ) : (
               <button
                 title="Delete Key"
                 onClick={handleDeleteKey}
-                className="rounded p-1 hover:bg-slate-200"
+                className={styles["key-control-button"]}
               >
-                <TrashIcon className="h-5 w-5" />
+                <TrashIcon className={styles["key-control-button-duplicate"]} />
               </button>
             )
           ) : null}
         </div>
       </div>
-      <div className="text-xs flex flex-row items-center gap-x-1 -mt-2 mb-2">
-        <div className="text-zinc-400">
+      <div className={styles["key-control-created"]}>
+        <div className={styles["key-control-created-text"]}>
           created {dayjs(apiKey.createdOn).fromNow()}
           {apiKey.expiresOn && ","}
         </div>
-        <div className="text-red-500">
+        <div className={styles["key-control-expires"]}>
           {apiKey.expiresOn && `expires ${dayjs(apiKey.expiresOn).fromNow()}`}
         </div>
       </div>

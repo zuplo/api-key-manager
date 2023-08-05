@@ -1,4 +1,4 @@
-import ApiKeyManager from "./components/ApiKeyManager";
+import ApiKeyManager from "./components/ApiKeyManager/ApiKeyManager";
 
 // TODO - just trying to get this working right now, not sure this should be 'default' or export _type_ is best approach
 
