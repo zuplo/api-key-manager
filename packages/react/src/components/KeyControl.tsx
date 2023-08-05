@@ -69,7 +69,10 @@ const KeyControl = ({
   return (
     <div>
       <div className="flex flex-row justify-between items-center">
-        <span className="font-mono text-ellipsis overflow-hidden py-2 mr-2 text-zinc-800">
+        <span
+          title={masked ? undefined : apiKey.key}
+          className="font-mono text-ellipsis overflow-hidden py-2 mr-2 text-zinc-800"
+        >
           {mask(apiKey.key, masked)}
         </span>
         <div className="flex gap-x-1 justify-end text-zinc-500">
