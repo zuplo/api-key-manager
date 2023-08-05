@@ -26,7 +26,7 @@ function ApiKeyManager(props: Props) {
   if ("provider" in props) {
     if (typeof props !== "object") {
       throw new Error(
-        "The optional property 'provider' must be a valid ApiKeyManagerProvider object"
+        "The property 'provider' must be a valid ApiKeyManagerProvider object"
       );
     }
     provider = props.provider;
