@@ -69,10 +69,12 @@ const KeyControl = ({
   return (
     <div>
       <div className="flex flex-row justify-between items-center">
-        <div className="font-mono py-2 mr-2 text-zinc-800">
+        <span
+          title={masked ? undefined : apiKey.key}
+          className="font-mono text-ellipsis overflow-hidden py-2 mr-2 text-zinc-800"
+        >
           {mask(apiKey.key, masked)}
-        </div>
-
+        </span>
         <div className="flex gap-x-1 justify-end text-zinc-500">
           <button
             title="Copy Key"
@@ -115,7 +117,6 @@ const KeyControl = ({
           ) : null}
         </div>
       </div>
-
       <div className="text-xs flex flex-row items-center gap-x-1 -mt-2 mb-2">
         <div className="text-zinc-400">
           created {dayjs(apiKey.createdOn).fromNow()}
