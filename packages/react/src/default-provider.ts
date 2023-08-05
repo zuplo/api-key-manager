@@ -13,7 +13,7 @@ export class StandardApiKeyManagerProvider implements ApiKeyManagerProvider {
     url: string,
     okStatus: number,
     method: string = "GET",
-    body?: object
+    body?: object,
   ) => {
     const headers: Record<string, string> = {
       authorization: `Bearer ${this.token}`,
@@ -29,16 +29,48 @@ export class StandardApiKeyManagerProvider implements ApiKeyManagerProvider {
       body: JSON.stringify(body),
     });
 
-    if (response.status !== okStatus) {
-      throw new Error(
-        `Failed '${method}' operation calling '${url}'
-         - ${response.status}: ${response.statusText}`
-      );
+    const isExpectedResponse = response.status === okStatus;
+    const contentType = response.headers.get("content-type");
+    if (
+      contentType?.includes("application/json") ||
+      contentType?.includes("application/problem+json")
+    ) {
+      let responseError: Error;
+      try {
+        const jsonData = await response.json();
+        if (isExpectedResponse) {
+          return jsonData;
+        }
+        if ("title" in jsonData || "detail" in jsonData) {
+          const { title, detail } = jsonData;
+
+          responseError = new Error(
+            `Failed '${method}' operation calling '${url}'
+             -> ${title} ${detail ? `: ${detail}` : ""}`,
+          );
+        } else {
+          responseError = new Error(
+            `Failed '${method}' operation calling '${url}'
+             -> ${JSON.stringify(jsonData)}`,
+          );
+        }
+      } catch (e) {
+        responseError = new Error(
+          `Failed to parse JSON response from '${url}' - ${
+            (e as Error).message
+          }`,
+        );
+      }
+
+      throw responseError;
     }
 
-    if (response.headers.get("content-type")?.includes("application/json")) {
-      const data = await response.json();
-      return data;
+    const text = await response.text();
+    if (!isExpectedResponse) {
+      throw new Error(
+        `Failed '${method}' operation calling '${url}'
+         -> ${response.status}: ${text.substring(0, 100)}`,
+      );
     }
     // otherwise just return
     return;
@@ -59,13 +91,13 @@ export class StandardApiKeyManagerProvider implements ApiKeyManagerProvider {
     await this.innerFetch(
       `/consumers/${consumerName}/keys/${keyId}`,
       204,
-      "DELETE"
+      "DELETE",
     );
   };
 
   updateConsumerDescription = async (
     consumerName: string,
-    description: string
+    description: string,
   ) => {
     const data = await this.innerFetch(
       `/consumers/${consumerName}`,
@@ -73,7 +105,7 @@ export class StandardApiKeyManagerProvider implements ApiKeyManagerProvider {
       "PATCH",
       {
         description,
-      }
+      },
     );
     return data;
   };
