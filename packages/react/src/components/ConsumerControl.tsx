@@ -1,15 +1,15 @@
 import { useEffect, useState } from "react";
+import { Consumer, MenuItem } from "../interfaces";
+import { useQueryEngineContext } from "../useQueryEngineContext";
+import KeyControl from "./KeyControl";
+import { SimpleMenu } from "./SimpleMenu";
 import {
   EllipsisVerticalIcon,
   Save,
   Spinner,
   XCircleIcon,
   XIcon,
-} from "../icons";
-import { Consumer, MenuItem } from "../interfaces";
-import { useQueryEngineContext } from "../useQueryEngineContext";
-import KeyControl from "./KeyControl";
-import { SimpleMenu } from "./SimpleMenu";
+} from "./icons";
 
 import styles from "./ConsumerControl.module.css";
 

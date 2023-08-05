@@ -1,4 +1,4 @@
-import { EllipsisVerticalIcon } from "../icons";
+import { EllipsisVerticalIcon } from "./icons";
 
 import styles from "./ConsumerLoading.module.css";
 

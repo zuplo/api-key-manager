@@ -2,6 +2,8 @@ import dayjs from "dayjs";
 import localizedFormat from "dayjs/plugin/localizedFormat";
 import relativeTime from "dayjs/plugin/relativeTime";
 import { useEffect, useState } from "react";
+import { ApiKey } from "../interfaces";
+import { useQueryEngineContext } from "../useQueryEngineContext";
 import {
   CheckIcon,
   DocumentDuplicateIcon,
@@ -9,9 +11,7 @@ import {
   EyeSlashIcon,
   Spinner,
   TrashIcon,
-} from "../icons";
-import { ApiKey } from "../interfaces";
-import { useQueryEngineContext } from "../useQueryEngineContext";
+} from "./icons";
 
 import styles from "./KeyControl.module.css";
 

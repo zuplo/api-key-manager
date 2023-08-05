@@ -1,7 +1,5 @@
 import { useAuth0 } from "@auth0/auth0-react";
-import ApiKeyManager, {
-  StandardApiKeyManagerProvider,
-} from "@zuplo/react-api-key-manager";
+import ApiKeyManager from "@zuplo/react-api-key-manager";
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
 import Layout from "../components/layout";
@@ -12,6 +10,7 @@ function Keys() {
   const router = useRouter();
   const { isAuthenticated, isLoading, getAccessTokenSilently } = useAuth0();
   const [accessToken, setAccessToken] = useState<string | undefined>();
+  const apiUrl = getRequiredEnvVar("NEXT_PUBLIC_API_URL");
 
   useEffect(() => {
     if (isAuthenticated) {
@@ -29,22 +28,20 @@ function Keys() {
     }
   }, [getAccessTokenSilently, isAuthenticated]);
 
+  // If the user is not authenticated, redirect to the index page
   if (!isLoading && !isAuthenticated) {
     router.push("/");
   }
 
-  let content = <Loading />;
-  if (accessToken) {
-    const apiUrl = getRequiredEnvVar("NEXT_PUBLIC_API_URL");
-
-    const provider = new StandardApiKeyManagerProvider(apiUrl, accessToken);
-    // Why do we make the user create the provider, this should be the
-    // easy mode to instantiate this manager...
-    // <ReactAPIKeyManager apiUrl={apiUrl} accessToken={accessToken} />
-    content = <ApiKeyManager provider={provider} />;
-  }
-
-  return <Layout>{content}</Layout>;
+  return (
+    <Layout>
+      {accessToken ? (
+        <ApiKeyManager apiUrl={apiUrl} accessToken={accessToken} />
+      ) : (
+        <Loading />
+      )}
+    </Layout>
+  );
 }
 
 export default Keys;

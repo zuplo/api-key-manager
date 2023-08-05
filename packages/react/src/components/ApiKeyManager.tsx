@@ -1,18 +1,50 @@
 import { QueryEngineContext } from "../context";
-import { XCircleIcon } from "../icons";
 import { ApiKeyManagerProvider, MenuItem } from "../interfaces";
 import { useProviderQueryEngine } from "../useProviderQueryEngine";
 import ConsumerControl from "./ConsumerControl";
 import ConsumerLoading from "./ConsumerLoading";
+import { XCircleIcon } from "./icons";
 
+import { DefaultApiKeyManagerProvider } from "../provider";
 import styles from "./ApiKeyManager.module.css";
 
-interface Props {
-  provider: ApiKeyManagerProvider;
+interface DefaultProps {
   menuItems?: MenuItem[];
+  apiUrl: string;
+  accessToken: string;
 }
 
-function ApiKeyManager({ provider, menuItems }: Props) {
+interface CustomProviderProps {
+  menuItems?: MenuItem[];
+  provider: ApiKeyManagerProvider;
+}
+
+type Props = DefaultProps | CustomProviderProps;
+
+function ApiKeyManager(props: Props) {
+  let provider: ApiKeyManagerProvider;
+  if ("provider" in props) {
+    if (typeof props !== "object") {
+      throw new Error(
+        "The optional property 'provider' must be a valid ApiKeyManagerProvider object"
+      );
+    }
+    provider = props.provider;
+  } else {
+    if (typeof props.apiUrl !== "string") {
+      throw new Error("The property 'apiUrl' must be set to a string value");
+    }
+    if (typeof props.accessToken !== "string") {
+      throw new Error(
+        "The property 'accessToken' must be set to a string value"
+      );
+    }
+    provider = new DefaultApiKeyManagerProvider(
+      props.apiUrl,
+      props.accessToken
+    );
+  }
+
   const queryEngine = useProviderQueryEngine(provider);
   const query = queryEngine.useMyConsumersQuery();
   if (!query.data && query.isLoading) {
@@ -48,7 +80,7 @@ function ApiKeyManager({ provider, menuItems }: Props) {
           <ConsumerControl
             key={c.name}
             consumer={c}
-            menuItems={menuItems}
+            menuItems={props.menuItems}
             isLoading={query.isLoading}
           />
         );
