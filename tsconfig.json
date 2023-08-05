@@ -1,7 +1,4 @@
 {
-  "compilerOptions": {
-    "sourceMap": true,
-    "jsx": "react",
-    "moduleResolution": "node"
-  }
+  "files": [],
+  "references": [{ "path": "./packages/react" }]
 }

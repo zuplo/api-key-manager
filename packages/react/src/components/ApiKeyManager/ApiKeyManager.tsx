@@ -1,11 +1,11 @@
-import { ApiKeyManagerProvider, MenuItem } from "../../interfaces";
 import { QueryEngineContext } from "../../context";
+import { XCircleIcon } from "../../icons";
+import { ApiKeyManagerProvider, MenuItem } from "../../interfaces";
 import { useProviderQueryEngine } from "../../useProviderQueryEngine";
 import ConsumerLoading from "../ConsumerControl/ConsumerLoading";
-import { XCircleIcon } from "../../icons";
 
-import styles from "./ApiKeyManager.module.css";
 import ConsumerControl from "../ConsumerControl/ConsumerControl";
+import styles from "./ApiKeyManager.module.css";
 interface Props {
   provider: ApiKeyManagerProvider;
   menuItems?: MenuItem[];

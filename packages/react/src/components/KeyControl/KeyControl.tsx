@@ -1,7 +1,7 @@
 import dayjs from "dayjs";
 import localizedFormat from "dayjs/plugin/localizedFormat";
 import relativeTime from "dayjs/plugin/relativeTime";
-import { useState, useEffect } from "react";
+import { useEffect, useState } from "react";
 import {
   CheckIcon,
   DocumentDuplicateIcon,
@@ -55,7 +55,11 @@ const KeyControl = ({
     onMutationComplete(deleteKeyMutation.error);
     // We use the isLoading flag here to reset the error state whenever the
     // mutation is triggered
-  }, [deleteKeyMutation.isLoading]);
+  }, [
+    deleteKeyMutation.error,
+    deleteKeyMutation.isLoading,
+    onMutationComplete,
+  ]);
 
   function handleDeleteKey() {
     deleteKeyMutation.mutate({

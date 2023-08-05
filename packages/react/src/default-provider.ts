@@ -13,7 +13,7 @@ export class StandardApiKeyManagerProvider implements ApiKeyManagerProvider {
     url: string,
     okStatus: number,
     method: string = "GET",
-    body?: object,
+    body?: object
   ) => {
     const headers: Record<string, string> = {
       authorization: `Bearer ${this.token}`,
@@ -46,19 +46,19 @@ export class StandardApiKeyManagerProvider implements ApiKeyManagerProvider {
 
           responseError = new Error(
             `Failed '${method}' operation calling '${url}'
-             -> ${title} ${detail ? `: ${detail}` : ""}`,
+             -> ${title} ${detail ? `: ${detail}` : ""}`
           );
         } else {
           responseError = new Error(
             `Failed '${method}' operation calling '${url}'
-             -> ${JSON.stringify(jsonData)}`,
+             -> ${JSON.stringify(jsonData)}`
           );
         }
       } catch (e) {
         responseError = new Error(
           `Failed to parse JSON response from '${url}' - ${
             (e as Error).message
-          }`,
+          }`
         );
       }
 
@@ -69,7 +69,7 @@ export class StandardApiKeyManagerProvider implements ApiKeyManagerProvider {
     if (!isExpectedResponse) {
       throw new Error(
         `Failed '${method}' operation calling '${url}'
-         -> ${response.status}: ${text.substring(0, 100)}`,
+         -> ${response.status}: ${text.substring(0, 100)}`
       );
     }
     // otherwise just return
@@ -91,13 +91,13 @@ export class StandardApiKeyManagerProvider implements ApiKeyManagerProvider {
     await this.innerFetch(
       `/consumers/${consumerName}/keys/${keyId}`,
       204,
-      "DELETE",
+      "DELETE"
     );
   };
 
   updateConsumerDescription = async (
     consumerName: string,
-    description: string,
+    description: string
   ) => {
     const data = await this.innerFetch(
       `/consumers/${consumerName}`,
@@ -105,7 +105,7 @@ export class StandardApiKeyManagerProvider implements ApiKeyManagerProvider {
       "PATCH",
       {
         description,
-      },
+      }
     );
     return data;
   };

@@ -1,14 +1,11 @@
 import "@/styles/globals.css";
-import "../../../../packages/react/dist/index.css";
 import { Auth0Provider } from "@auth0/auth0-react";
 import "@zuplo/react-api-key-manager/styles.css";
 import type { AppProps } from "next/app";
+import "../../../../packages/react/dist/index.css";
 import { getRequiredEnvVar } from "../env";
 
-export default function App({
-  Component,
-  pageProps: { session, ...pageProps },
-}: AppProps & { session: any }) {
+export default function App({ Component, pageProps }: AppProps) {
   let redirectUri;
   if (typeof window !== "undefined") {
     redirectUri = window.location.origin;

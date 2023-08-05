@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useEffect, useState } from "react";
 import {
   EllipsisVerticalIcon,
   Save,
@@ -8,9 +8,9 @@ import {
 } from "../../icons";
 import { Consumer, MenuItem } from "../../interfaces";
 import { useQueryEngineContext } from "../../useQueryEngineContext";
+import KeyControl from "../KeyControl/KeyControl";
 import { SimpleMenu } from "../SimpleMenu/SimpleMenu";
 import styles from "./ConsumerControl.module.css";
-import KeyControl from "../KeyControl/KeyControl";
 
 interface ConsumerControlProps {
   consumer: Consumer;
@@ -37,7 +37,10 @@ const ConsumerControl = ({
       return;
     }
     setQueryError(undefined);
-  }, [consumerDescriptionMutation.isLoading]);
+  }, [
+    consumerDescriptionMutation.error,
+    consumerDescriptionMutation.isLoading,
+  ]);
 
   useEffect(() => {
     if (keyRollMutation.error) {
@@ -45,7 +48,7 @@ const ConsumerControl = ({
       return;
     }
     setQueryError(undefined);
-  }, [keyRollMutation.isLoading]);
+  }, [keyRollMutation.error, keyRollMutation.isLoading]);
 
   const handleMutationComplete = (error: unknown) => {
     if (!error) {

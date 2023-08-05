@@ -18,6 +18,7 @@ const Profile = () => {
 
   return (
     <div>
+      {/* eslint-disable-next-line @next/next/no-img-element */}
       <img src={user?.picture} alt={user?.name} />
       <h2>{user?.name}</h2>
       <p>{user?.email}</p>

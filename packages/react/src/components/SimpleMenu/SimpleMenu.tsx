@@ -1,11 +1,11 @@
 import { useEffect, useRef, useState } from "react";
+import styles from "./SimpleMenu.module.css"; // Import the CSS module
 
 interface Props {
   disabled?: boolean;
   items: { label: string; action: () => void }[];
   children: JSX.Element;
 }
-import styles from "./SimpleMenu.module.css"; // Import the CSS module
 
 export function SimpleMenu({ disabled, items, children }: Props) {
   const [isOpen, setIsOpen] = useState(false);

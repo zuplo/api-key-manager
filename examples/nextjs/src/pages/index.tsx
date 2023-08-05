@@ -1,11 +1,9 @@
-import { Inter } from "next/font/google";
-
 import { useAuth0 } from "@auth0/auth0-react";
-import { useEffect, useState } from "react";
-import { getRequiredEnvVar } from "../env";
 import ApiKeyManager, {
   StandardApiKeyManagerProvider,
 } from "@zuplo/react-api-key-manager";
+import { useEffect, useState } from "react";
+import { getRequiredEnvVar } from "../env";
 
 export default function Home() {
   const { isAuthenticated, getAccessTokenSilently } = useAuth0();
