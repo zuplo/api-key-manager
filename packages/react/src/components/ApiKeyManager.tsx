@@ -13,11 +13,7 @@ interface Props {
   showIsLoading?: boolean;
 }
 
-function ApiKeyManager({
-  provider,
-  menuItems,
-  showIsLoading: showLoading,
-}: Props) {
+function ApiKeyManager({ provider, menuItems, showIsLoading }: Props) {
   const queryEngine = useProviderQueryEngine(provider);
   const query = queryEngine.useMyConsumersQuery();
 
@@ -56,7 +52,7 @@ function ApiKeyManager({
     return <div className="py-4">You have no API keys</div>;
   }
 
-  const loading = query.isLoading || showLoading === true ? true : false;
+  const loading = query.isLoading || showIsLoading === true ? true : false;
 
   return (
     <QueryEngineContext.Provider value={queryEngine}>
