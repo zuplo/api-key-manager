@@ -1,4 +1,4 @@
-import { ApiKeyManagerProvider } from "./interfaces";
+import { ApiKeyManagerProvider, RegisterHandle } from "./interfaces";
 
 export class DefaultApiKeyManagerProvider implements ApiKeyManagerProvider {
   constructor(baseUrl: string, token: string) {
@@ -93,6 +93,35 @@ export class DefaultApiKeyManagerProvider implements ApiKeyManagerProvider {
       204,
       "DELETE"
     );
+  };
+
+  createConsumer = async (description: string) => {
+    await this.innerFetch(`/consumers/my`, 200, "POST", {
+      description,
+    });
+  };
+
+  deleteConsumer = async (consumerName: string) => {
+    await this.innerFetch(`/consumers/${consumerName}`, 204, "DELETE");
+  };
+
+  readonly #callbacks: Map<RegisterHandle, () => void> = new Map();
+
+  registerOnRefresh = async (callback: () => void) => {
+    const handle = new RegisterHandle();
+    this.#callbacks.set(handle, callback);
+    console.log(
+      `registerOnRefresh callback, now have ${this.#callbacks.size} callbacks`
+    );
+  };
+
+  unregisterOnRefresh = async (handle: RegisterHandle) => {
+    this.#callbacks.delete(handle);
+    `unregisterOnRefresh callback, now have ${this.#callbacks.size} callbacks`;
+  };
+
+  refresh = () => {
+    this.#callbacks.forEach((callback) => callback());
   };
 
   updateConsumerDescription = async (

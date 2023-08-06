@@ -1,10 +1,14 @@
 import { useAuth0 } from "@auth0/auth0-react";
-import ApiKeyManager from "@zuplo/react-api-key-manager";
+import ApiKeyManager, {
+  DefaultApiKeyManagerProvider,
+} from "@zuplo/react-api-key-manager";
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
-import Layout from "../components/layout";
-import Loading from "../components/loading";
+import Layout from "../components/Layout";
+import Loading from "../components/Authenticating";
 import { getRequiredEnvVar } from "../env";
+import { access } from "fs";
+import KeyManager from "@/components/KeyManager";
 
 function Keys() {
   const router = useRouter();
@@ -30,15 +34,16 @@ function Keys() {
 
   // If the user is not authenticated, redirect to the index page
   if (!isLoading && !isAuthenticated) {
+    console.log("Keys not authenticated");
     router.push("/");
   }
 
   return (
     <Layout>
       {accessToken ? (
-        <ApiKeyManager apiUrl={apiUrl} accessToken={accessToken} />
+        <KeyManager apiUrl={apiUrl} accessToken={accessToken} />
       ) : (
-        <Loading />
+        <div className="flex justify-center">Authenticating...</div>
       )}
     </Layout>
   );

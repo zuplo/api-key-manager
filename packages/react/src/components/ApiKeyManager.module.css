@@ -1,9 +1,9 @@
 .query-error-border {
-  @apply flex flex-col w-full  text-red-600 bg-slate-50 text-sm border border-red-600 rounded-lg;
+  @apply flex flex-col w-full  text-red-600 bg-red-50 text-sm border border-red-600 rounded-lg p-4;
 }
 
 .query-error-message {
-  @apply pl-5 text-red-500 m-4 bg-slate-50;
+  @apply text-red-500 m-4;
 }
 
 .query-error-body {

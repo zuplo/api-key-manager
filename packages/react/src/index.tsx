@@ -8,4 +8,4 @@ export type {
   ConsumerData,
   MenuItem,
 } from "./interfaces";
-export { DefaultApiKeyManagerProvider } from "./provider";
+export { DefaultApiKeyManagerProvider } from "./default-provider";
