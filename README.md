@@ -1,11 +1,4 @@
-<p align="center">
-  <a href="https://zuplo.com">
-    <picture>
-      <img src="https://cdn.zuplo.com/static/logos/icon.svg" height="128">
-    </picture>
-    <h1 align="center">React API Key Manager</h1>
-  </a>
-</p>
+ <h1 align="center">React API Key Manager</h1>
 
 <p align="center">
   <a aria-label="Zuplo logo" href="https://zuplo.com">
