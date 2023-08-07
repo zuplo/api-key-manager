@@ -1,14 +1,9 @@
+import KeyManager from "@/components/KeyManager";
 import { useAuth0 } from "@auth0/auth0-react";
-import ApiKeyManager, {
-  DefaultApiKeyManagerProvider,
-} from "@zuplo/react-api-key-manager";
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
-import Layout from "../components/Layout";
-import Loading from "../components/Authenticating";
+import Layout from "../components/Layout1";
 import { getRequiredEnvVar } from "../env";
-import { access } from "fs";
-import KeyManager from "@/components/KeyManager";
 
 function Keys() {
   const router = useRouter();

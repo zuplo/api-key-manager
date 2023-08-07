@@ -1,7 +1,7 @@
 import { useAuth0 } from "@auth0/auth0-react";
 import { PropsWithChildren } from "react";
-import Header from "./Header";
 import Authenticating from "./Authenticating";
+import Header from "./Header";
 function Layout({ children }: PropsWithChildren) {
   const { isLoading } = useAuth0();
 
