@@ -4,7 +4,7 @@
   "private": true,
   "scripts": {
     "dev": "next dev",
-    "build": "next build",
+    "build": "cd ../../ && npm run build && cd examples/nextjs && next build",
     "start": "next start",
     "lint": "next lint"
   },
@@ -12,7 +12,7 @@
     "@types/node": "20.4.5",
     "@types/react": "18.2.17",
     "@types/react-dom": "18.2.7",
-    "@zuplo/react-api-key-manager": "^0.21.0",
+    "@zuplo/react-api-key-manager": "*",
     "autoprefixer": "10.4.14",
     "eslint": "8.46.0",
     "eslint-config-next": "13.4.12",
