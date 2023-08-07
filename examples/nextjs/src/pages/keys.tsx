@@ -2,7 +2,7 @@ import KeyManager from "@/components/KeyManager";
 import { useAuth0 } from "@auth0/auth0-react";
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
-import Layout from "../components/Layout1";
+import Layout from "../components/Layout";
 import { getRequiredEnvVar } from "../env";
 
 function Keys() {
