@@ -24,6 +24,3 @@ dist-ssr
 *.njsproj
 *.sln
 *.sw?
-
-
-packages/react/README.md
