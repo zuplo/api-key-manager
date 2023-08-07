@@ -1,6 +1,7 @@
 import ApiKeyManager from "./components/ApiKeyManager";
 
 export default ApiKeyManager;
+export { DefaultApiKeyManagerProvider } from "./default-provider";
 export type {
   ApiKey,
   ApiKeyManagerProvider,
@@ -8,4 +9,4 @@ export type {
   ConsumerData,
   MenuItem,
 } from "./interfaces";
-export { DefaultApiKeyManagerProvider } from "./default-provider";
+export { ApiKeyManager };

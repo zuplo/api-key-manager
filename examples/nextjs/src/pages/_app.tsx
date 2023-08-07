@@ -1,6 +1,5 @@
 import "@/styles/globals.css";
 import { Auth0Provider } from "@auth0/auth0-react";
-import "@zuplo/react-api-key-manager/index.css";
 import type { AppProps } from "next/app";
 import { getRequiredEnvVar } from "../env";
 
