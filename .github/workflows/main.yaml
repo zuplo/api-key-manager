@@ -43,16 +43,20 @@ jobs:
         env:
           NODE_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
-      #   # To the public NPM Registry
-      #   - uses: actions/setup-node@v3
-      #     with:
-      #       node-version-file: ".nvmrc"
-      #       cache: "npm"
-      #       registry-url: "https://registry.npmjs.com"
-      #   - run: npm config list
-      #   - run: npm publish
-      #     env:
-      #       NODE_AUTH_TOKEN: ${{ secrets.PUBLIC_NPM_REGISTRY_TOKEN }}
+      # To the public NPM Registry
+      - uses: actions/setup-node@v3
+        with:
+          node-version-file: ".nvmrc"
+          cache: "npm"
+          registry-url: "https://registry.npmjs.com"
+          scope: "@zuplo"
+
+      - run: npm config list
+        working-directory: ./packages/react
+      - run: npm publish
+        working-directory: ./packages/react
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.PUBLIC_NPM_REGISTRY_TOKEN }}
 
       - uses: ncipollo/release-action@v1
         with:
