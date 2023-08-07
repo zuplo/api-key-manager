@@ -1,0 +1,83 @@
+{
+  "name": "@zuplo/react-api-key-manager",
+  "version": "0.27.0",
+  "description": "A React component to manage API keys",
+  "keywords": [
+    "react",
+    "api-keys",
+    "api-key",
+    "zuplo"
+  ],
+  "repository": {
+    "url": "github:zuplo/api-key-manager",
+    "directory": "packages/react"
+  },
+  "license": "MIT",
+  "type": "module",
+  "exports": {
+    "./package.json": "./package.json",
+    "./index.css": "./dist/index.css",
+    "./tailwind.css": "./dist/tailwind.css",
+    ".": {
+      "browser": "./dist/index.js",
+      "import": "./dist/index.js",
+      "require": "./dist/index.cjs"
+    },
+    "./react": {
+      "browser": "./dist/react/index.js",
+      "import": "./dist/react/index.js",
+      "require": "./dist/react/index.cjs"
+    }
+  },
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "typesVersions": {
+    "*": {
+      "*": [
+        "dist/index.d.ts"
+      ],
+      "react": [
+        "dist/react/index.d.ts"
+      ]
+    }
+  },
+  "scripts": {
+    "build": "tsup",
+    "dev": "tsup --watch .",
+    "lint": "eslint .",
+    "lint-fix": "eslint . --fix",
+    "test": "jest",
+    "type-check": "tsc --noEmit",
+    "prepublishOnly": "cp ../../README.md ./README.md"
+  },
+  "peerDependencies": {
+    "react": "^16.8.0 || 18.x",
+    "react-dom": "^16.8.0 || 18.x"
+  },
+  "dependencies": {
+    "dayjs": "^1.11.9",
+    "postcss-css-variables": "^0.19.0"
+  },
+  "devDependencies": {
+    "@types/node": "^20.3.1",
+    "@types/react": "^18.2.14",
+    "@typescript-eslint/eslint-plugin": "^6.0.0",
+    "@typescript-eslint/parser": "^6.0.0",
+    "autoprefixer": "^10.4.14",
+    "eslint": "^8.45.0",
+    "eslint-plugin-react": "^7.33.1",
+    "eslint-plugin-react-hooks": "^4.6.0",
+    "eslint-plugin-react-refresh": "^0.4.3",
+    "postcss": "^8.4.27",
+    "postcss-modules": "^6.0.0",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
+    "tailwindcss": "^3.3.3",
+    "tsup": "7.1.0"
+  },
+  "lint-staged": {
+    "**/*.{ts,js}": [
+      "eslint --cache --fix"
+    ]
+  }
+}

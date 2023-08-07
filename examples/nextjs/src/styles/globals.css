@@ -1,0 +1,4 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+@import "@zuplo/react-api-key-manager/tailwind.css";

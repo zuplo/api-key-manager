@@ -1,0 +1,62 @@
+name: Main
+on:
+  push:
+
+jobs:
+  build:
+    name: Build & Test
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      packages: write
+    steps:
+      - uses: actions/checkout@v3
+      - run: npm ci
+      - run: npm run build
+
+  publish:
+    name: Publish
+    if: startsWith(github.ref, 'refs/tags/v')
+    needs: build
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+      packages: write
+    steps:
+      - uses: actions/checkout@v3
+      - uses: actions/setup-node@v3
+        with:
+          node-version-file: ".nvmrc"
+          cache: "npm"
+          registry-url: "https://npm.pkg.github.com"
+
+      - name: Archive Example
+        run: zip -r nextjs-example.zip .
+        working-directory: ./examples/nextjs
+
+      - run: npm ci
+      - run: npm run build
+        working-directory: ./packages/react
+
+      - run: npm publish
+        working-directory: ./packages/react
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      # To the public NPM Registry
+      - uses: actions/setup-node@v3
+        with:
+          node-version-file: ".nvmrc"
+          cache: "npm"
+          registry-url: "https://registry.npmjs.com"
+          scope: "@zuplo"
+
+      - run: npm publish --access public
+        working-directory: ./packages/react
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.PUBLIC_NPM_REGISTRY_TOKEN }}
+
+      - uses: ncipollo/release-action@v1
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          artifacts: examples/nextjs/nextjs-example.zip

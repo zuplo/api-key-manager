@@ -1,0 +1,23 @@
+.query-error-border {
+  @apply flex flex-col w-full  text-red-600 bg-red-50 text-sm border border-red-600 rounded-lg p-4;
+}
+
+.query-error-message {
+  @apply text-red-500 m-4;
+}
+
+.query-error-body {
+  @apply flex flex-row justify-between items-center bg-red-50 p-4 border-b rounded-t-lg border-red-600;
+}
+
+.query-error-heading {
+  @apply flex flex-row items-center;
+}
+
+.query-error-icon {
+  @apply h-4 w-4 mr-1;
+}
+
+.query-error-heading-text {
+  @apply font-bold;
+}
