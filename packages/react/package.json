@@ -43,7 +43,7 @@
   },
   "scripts": {
     "build": "tsup",
-    "dev": "tsup --watch .",
+    "dev": "tsup --watch .  --ignore-watch dist  --ignore-watch dist-tailwind",
     "lint": "eslint .",
     "lint-fix": "eslint . --fix",
     "test": "jest",

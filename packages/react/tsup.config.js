@@ -99,18 +99,13 @@ export default defineConfig([
     }),
     outDir: "dist",
   },
-  // eslint-disable-next-line no-undef
-  ...(process.env.CI
-    ? [
-        {
-          ...getConfig(),
-          outDir: "dist-tailwind",
-          onSuccess: async () => {
-            const source = path.join("dist-tailwind/index.css");
-            const dest = path.join("dist/tailwind.css");
-            await fs.copyFile(source, dest);
-          },
-        },
-      ]
-    : []),
+  {
+    ...getConfig(),
+    outDir: "dist-tailwind",
+    onSuccess: async () => {
+      const source = path.join("dist-tailwind/index.css");
+      const dest = path.join("dist/tailwind.css");
+      await fs.copyFile(source, dest);
+    },
+  },
 ]);
