@@ -86,21 +86,6 @@ or custom API. The Interface for the provider is shown below. Additionally, you
 can see the default implementation in
 [`packages/react/src/default-provider.ts`](https://github.com/zuplo/api-key-manager/blob/main/packages/react/src/default-provider.ts)
 
-```ts
-interface ApiKeyManagerProvider {
-  getConsumers: () => Promise<ConsumerData>;
-  rollKey: (consumerName: string, expiresOn: Date) => Promise<void>;
-  deleteKey: (consumerName: string, keyId: string) => Promise<void>;
-  updateConsumerDescription: (
-    consumerName: string,
-    description: string
-  ) => Promise<void>;
-  refresh: () => void;
-  registerOnRefresh: (callback: () => void) => RegisterHandle;
-  unregisterOnRefresh: (handle: RegisterHandle) => void;
-}
-```
-
 ## Community and Contribution
 
 We welcome community contributions and ideas. Please feel free to open an issue

@@ -48,7 +48,7 @@
     "lint-fix": "eslint . --fix",
     "test": "jest",
     "type-check": "tsc --noEmit",
-    "prepublish": "cp ../README.md ./README.md"
+    "prepublishOnly": "cp ../../README.md ./README.md"
   },
   "peerDependencies": {
     "react": "^16.8.0 || 18.x",
