@@ -19,7 +19,6 @@
     "postinstall": "npx husky install"
   },
   "workspaces": [
-    "demo/",
     "examples/*",
     "packages/*"
   ],
