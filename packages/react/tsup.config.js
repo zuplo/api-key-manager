@@ -100,7 +100,7 @@ export default defineConfig([
     outDir: "dist",
   },
   // eslint-disable-next-line no-undef
-  ...(process.env.NODE_ENV === "PRODUCTION"
+  ...(process.env.CI
     ? [
         {
           ...getConfig(),
