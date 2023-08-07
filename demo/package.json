@@ -4,7 +4,7 @@
   "private": true,
   "scripts": {
     "dev": "next dev",
-    "build": "cd ../../ && npm run build && cd examples/nextjs && next build",
+    "build": "cd ../ && npm run build && cd demo && next build",
     "start": "next start",
     "lint": "next lint"
   },
