@@ -20,7 +20,7 @@
 A react component for managing API keys that is compatible with any API Key
 management API.
 
-![Component Screenshot](./docs/screenshot.png)
+![Component Screenshot](https://cdn.zuplo.com/assets/cedd8ad0-9433-4433-80f6-86545ba0d41a.png)
 
 ## Getting Started
 
