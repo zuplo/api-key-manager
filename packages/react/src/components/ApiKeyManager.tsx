@@ -4,49 +4,28 @@ import { useProviderQueryEngine } from "../useProviderQueryEngine";
 import ConsumerControl from "./ConsumerControl";
 import ConsumerLoading from "./ConsumerLoading";
 import { XCircleIcon } from "./icons";
-
-import { DefaultApiKeyManagerProvider } from "../provider";
 import styles from "./ApiKeyManager.module.css";
+import { useEffect } from "react";
 
-interface DefaultProps {
-  menuItems?: MenuItem[];
-  apiUrl: string;
-  accessToken: string;
-}
-
-interface CustomProviderProps {
+interface Props {
   menuItems?: MenuItem[];
   provider: ApiKeyManagerProvider;
+  showIsLoading?: boolean;
 }
 
-type Props = DefaultProps | CustomProviderProps;
-
-function ApiKeyManager(props: Props) {
-  let provider: ApiKeyManagerProvider;
-  if ("provider" in props) {
-    if (typeof props !== "object") {
-      throw new Error(
-        "The property 'provider' must be a valid ApiKeyManagerProvider object"
-      );
-    }
-    provider = props.provider;
-  } else {
-    if (typeof props.apiUrl !== "string") {
-      throw new Error("The property 'apiUrl' must be set to a string value");
-    }
-    if (typeof props.accessToken !== "string") {
-      throw new Error(
-        "The property 'accessToken' must be set to a string value"
-      );
-    }
-    provider = new DefaultApiKeyManagerProvider(
-      props.apiUrl,
-      props.accessToken
-    );
-  }
-
+function ApiKeyManager({ provider, menuItems, showIsLoading }: Props) {
   const queryEngine = useProviderQueryEngine(provider);
   const query = queryEngine.useMyConsumersQuery();
+
+  useEffect(() => {
+    const handle = provider.registerOnRefresh(() => {
+      queryEngine.refreshMyConsumers();
+    });
+    return () => {
+      provider.unregisterOnRefresh(handle);
+    };
+  }, [provider, queryEngine]);
+
   if (!query.data && query.isLoading) {
     return <ConsumerLoading />;
   }
@@ -70,8 +49,10 @@ function ApiKeyManager(props: Props) {
   const consumers = query.data?.data;
 
   if (!consumers || consumers.length === 0) {
-    return <div>You have no API keys</div>;
+    return <div className="py-4">You have no API keys</div>;
   }
+
+  const loading = query.isLoading || showIsLoading === true ? true : false;
 
   return (
     <QueryEngineContext.Provider value={queryEngine}>
@@ -80,8 +61,8 @@ function ApiKeyManager(props: Props) {
           <ConsumerControl
             key={c.name}
             consumer={c}
-            menuItems={props.menuItems}
-            isLoading={query.isLoading}
+            menuItems={menuItems}
+            isLoading={loading}
           />
         );
       })}
@@ -89,12 +70,4 @@ function ApiKeyManager(props: Props) {
   );
 }
 
-function ApiKeyManagerWrapper(props: Props) {
-  return (
-    <div className="zp-key-manager">
-      <ApiKeyManager {...props} />
-    </div>
-  );
-}
-
-export default ApiKeyManagerWrapper;
+export default ApiKeyManager;

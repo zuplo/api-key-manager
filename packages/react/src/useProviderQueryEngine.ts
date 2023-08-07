@@ -1,6 +1,14 @@
+import { useCallback } from "react";
 import { ApiKeyManagerProvider, ConsumerData } from "./interfaces";
-import { MutationState, useMiniMutation } from "./useMiniMutation";
-import { QueryState, useMiniQuery } from "./useMiniQuery";
+import {
+  MutationState,
+  useMiniMutation,
+} from "./components/mini-query/useMiniMutation";
+import {
+  QueryState,
+  refreshQuery,
+  useMiniQuery,
+} from "./components/mini-query/useMiniQuery";
 
 const MY_CONSUMERS_KEY = "my-consumers";
 const INVALIDATE_OPTIONS = { invalidateQueriesOnSuccess: [MY_CONSUMERS_KEY] };
@@ -22,16 +30,30 @@ interface DeleteKeyMutationOptions {
 
 export interface QueryEngine {
   useMyConsumersQuery: () => QueryState<ConsumerData>;
+  refreshMyConsumers: () => Promise<void>;
   useRollKeyMutation: () => MutationState<RollKeyMutationOptions>;
   useConsumerDescriptionMutation: () => MutationState<ConsumerDescriptionMutationOptions>;
   useDeleteKeyMutation: () => MutationState<DeleteKeyMutationOptions>;
 }
 
+const queryEngineMap = new Map<ApiKeyManagerProvider, QueryEngine>();
+
 export function useProviderQueryEngine(
   provider: ApiKeyManagerProvider
 ): QueryEngine {
+  const cached = queryEngineMap.get(provider);
+
+  if (cached) {
+    return cached;
+  }
+
   const useMyConsumersQuery = () => {
-    return useMiniQuery(() => provider.getConsumers(), MY_CONSUMERS_KEY);
+    return useMiniQuery(
+      useCallback(() => {
+        return provider.getConsumers();
+      }, []),
+      MY_CONSUMERS_KEY
+    );
   };
 
   const useRollKeyMutation = () => {
@@ -61,10 +83,19 @@ export function useProviderQueryEngine(
     );
   };
 
-  return {
+  const refreshMyConsumers = async () => {
+    refreshQuery(MY_CONSUMERS_KEY);
+  };
+
+  const result = {
     useMyConsumersQuery,
+    refreshMyConsumers,
     useRollKeyMutation,
     useConsumerDescriptionMutation,
     useDeleteKeyMutation,
   };
+
+  queryEngineMap.set(provider, result);
+
+  return result;
 }

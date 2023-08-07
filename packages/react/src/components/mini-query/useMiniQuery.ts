@@ -19,17 +19,24 @@ export function useMiniQuery<T>(
   const [error, setError] = useState<unknown | undefined>();
 
   useEffect(() => {
+    console.log("query useEffect");
     const cachedQuery: CachedQuery<T> = {
       setIsLoading,
       setError,
       setData,
-      queryFn: queryFn,
+      queryFn,
     };
 
     cache[queryId] = cachedQuery;
     void asyncQuery(cachedQuery);
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  }, [queryId, queryFn]);
 
   return { isLoading, data, error };
+}
+
+export async function refreshQuery(queryId: string) {
+  const cachedQuery = cache[queryId];
+  if (cachedQuery) {
+    await asyncQuery(cachedQuery);
+  }
 }
