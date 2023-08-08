@@ -16,7 +16,8 @@ jobs:
       contents: write
 
     env:
-      CHECKOUT_TOKEN: ${{ secrets.GH_TOKEN_COMMIT_AND_BYPASS_BRANCH_PROTECTION }}
+      CHECKOUT_TOKEN:
+        ${{ secrets.GH_TOKEN_COMMIT_AND_BYPASS_BRANCH_PROTECTION }}
       GITHUB_TOKEN: ${{ secrets.GH_CUSTOM_TOKEN }}
       GITHUB_NPM_TOKEN: ${{ secrets.GH_CUSTOM_TOKEN }}
       NODE_AUTH_TOKEN: ${{ secrets.GH_CUSTOM_TOKEN }}

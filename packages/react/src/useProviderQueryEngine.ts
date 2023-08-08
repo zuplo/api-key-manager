@@ -39,7 +39,7 @@ export interface QueryEngine {
 const queryEngineMap = new Map<ApiKeyManagerProvider, QueryEngine>();
 
 export function useProviderQueryEngine(
-  provider: ApiKeyManagerProvider
+  provider: ApiKeyManagerProvider,
 ): QueryEngine {
   const cached = queryEngineMap.get(provider);
 
@@ -52,7 +52,7 @@ export function useProviderQueryEngine(
       useCallback(() => {
         return provider.getConsumers();
       }, []),
-      MY_CONSUMERS_KEY
+      MY_CONSUMERS_KEY,
     );
   };
 
@@ -61,7 +61,7 @@ export function useProviderQueryEngine(
       ({ consumerName, expiresOn }: RollKeyMutationOptions) => {
         return provider.rollKey(consumerName, expiresOn);
       },
-      INVALIDATE_OPTIONS
+      INVALIDATE_OPTIONS,
     );
   };
 
@@ -70,7 +70,7 @@ export function useProviderQueryEngine(
       ({ consumerName, description }: ConsumerDescriptionMutationOptions) => {
         return provider.updateConsumerDescription(consumerName, description);
       },
-      INVALIDATE_OPTIONS
+      INVALIDATE_OPTIONS,
     );
   };
 
@@ -79,7 +79,7 @@ export function useProviderQueryEngine(
       ({ consumerName, keyId }: DeleteKeyMutationOptions) => {
         return provider.deleteKey(consumerName, keyId);
       },
-      INVALIDATE_OPTIONS
+      INVALIDATE_OPTIONS,
     );
   };
 

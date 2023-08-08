@@ -20,11 +20,11 @@
 }
 
 .consumer-control-spinner-container {
-  @apply p-1;
+  @apply mr-1;
 }
 
 .consumer-control-spinner {
-  @apply h-5 w-5 mb-1.5 animate-spin dark:text-white;
+  @apply h-4 w-4 animate-spin dark:text-white;
 }
 
 .consumer-control-save-icon {
