@@ -24,6 +24,8 @@ management API.
 
 To see a demo of the component visit https://api-key-manager.com.
 
+Try it out by following our detailed [walkthrough tutorial](https://github.com/zuplo/api-key-manager/).
+
 ## Getting Started
 
 This component can be used with any React framework. It is compatible with
