@@ -9,7 +9,7 @@ import { useEffect } from "react";
 
 interface Props {
   menuItems?: MenuItem[];
-  theme?: string;
+  theme?: "light" | "dark";
   provider: ApiKeyManagerProvider;
   showIsLoading?: boolean;
 }
@@ -68,7 +68,7 @@ function ApiKeyManager({ provider, menuItems, showIsLoading, theme }: Props) {
   if (!consumers || consumers.length === 0) {
     return (
       <div className={themeStyle}>
-        <div className={styles['no-keys-message']}>You have no API keys</div>
+        <div className={styles["no-keys-message"]}>You have no API keys</div>
       </div>
     );
   }
@@ -76,11 +76,7 @@ function ApiKeyManager({ provider, menuItems, showIsLoading, theme }: Props) {
   const loading = query.isLoading || showIsLoading === true ? true : false;
   return (
     <QueryEngineContext.Provider value={queryEngine}>
-      <div
-        className={`zp-key-manager--${
-          theme ?? getSystemDefaultThemePreference()
-        }`}
-      >
+      <div className={themeStyle}>
         {consumers.map((c) => {
           return (
             <ConsumerControl

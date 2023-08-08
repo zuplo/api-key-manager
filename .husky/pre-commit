@@ -1,5 +1,4 @@
 #!/usr/bin/env sh
 . "$(dirname -- "$0")/_/husky.sh"
 
-# TODO: Figure out why this doesn't work
-#npx lint-staged
+npx lint-staged
