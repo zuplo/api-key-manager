@@ -68,7 +68,7 @@ function ApiKeyManager({ provider, menuItems, showIsLoading, theme }: Props) {
   if (!consumers || consumers.length === 0) {
     return (
       <div className={themeStyle}>
-        <div className="py-4 dark:text-white">You have no API keys</div>
+        <div className={styles['no-keys-message']}>You have no API keys</div>
       </div>
     );
   }
