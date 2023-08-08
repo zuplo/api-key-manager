@@ -83,7 +83,7 @@ const MyComponent = () => {
     "<ACCESS_TOKEN>",
   );
 
-  return <ApiKeyManager provider={provider} />;
+  return <ApiKeyManager provider={defaultProvider} />;
 };
 ```
 
