@@ -4,15 +4,15 @@
 }
 
 .key-control-key {
-  @apply font-mono text-ellipsis overflow-hidden py-2 mr-2 text-zinc-800;
+  @apply font-mono text-ellipsis overflow-hidden py-2 mr-2 text-zinc-800 dark:text-zinc-200;
 }
 
 .key-control-buttons {
-  @apply flex gap-x-1 justify-end text-zinc-500;
+  @apply flex gap-x-1 justify-end text-zinc-500 dark:text-zinc-200;
 }
 
 .key-control-button {
-  @apply rounded p-1 hover:bg-slate-200;
+  @apply rounded p-1 hover:bg-slate-200 hover:dark:bg-key-action-background;
 }
 
 .key-control-button-active {

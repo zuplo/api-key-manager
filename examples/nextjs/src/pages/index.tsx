@@ -15,7 +15,9 @@ export default function Home() {
 
   return (
     <Layout>
-      <div className="flex justify-center">Login to continue ↗️</div>
+      <div className="flex justify-center dark:text-white">
+        Login to continue ↗️
+      </div>
     </Layout>
   );
 }

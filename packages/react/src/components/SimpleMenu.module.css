@@ -9,13 +9,13 @@
 }
 
 .simple-menu-dialog {
-  @apply absolute top-0 right-0 z-50 shadow-md rounded bg-white;
+  @apply absolute top-0 right-0 z-50 shadow-md rounded bg-white dark:bg-menu-background;
 }
 
 .simple-menu-item-button {
-  @apply whitespace-nowrap rounded w-full hover:bg-slate-50 px-3 py-1 text-right;
+  @apply whitespace-nowrap rounded w-full hover:bg-slate-50 hover:dark:bg-menu-hover hover:dark:text-white px-3 py-1 text-right;
 }
 
 .simple-menu-dropdown {
-  @apply text-zinc-800 p-1;
+  @apply text-zinc-800 dark:text-zinc-200 p-1;
 }

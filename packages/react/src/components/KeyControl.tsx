@@ -57,11 +57,8 @@ const KeyControl = ({
     onMutationComplete(deleteKeyMutation.error);
     // We use the isLoading flag here to reset the error state whenever the
     // mutation is triggered
-  }, [
-    deleteKeyMutation.error,
-    deleteKeyMutation.isLoading,
-    onMutationComplete,
-  ]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [deleteKeyMutation.isLoading]);
 
   function handleDeleteKey() {
     deleteKeyMutation.mutate({
