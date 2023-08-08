@@ -18,16 +18,17 @@ export function SimpleMenu({ disabled, items, children }: Props) {
   }
 
   useEffect(() => {
-    document.addEventListener("click", () => {
+    window.addEventListener("click", (e) => {
+      // If the click is inside the button, don't close the menu.
+      if (buttonRef.current?.contains(e.target as Node)) {
+        e.stopPropagation();
+        return;
+      }
       setIsOpen(false);
     });
   }, []);
 
-  function toggleOpen(event: React.MouseEvent<HTMLButtonElement>) {
-    if (event.target !== buttonRef.current) {
-      event.stopPropagation();
-    }
-
+  function toggleOpen() {
     setIsOpen(!isOpen);
   }
 

@@ -61,8 +61,8 @@ export default function KeyManager({ apiUrl, accessToken }: Props) {
     return [
       {
         label: "Delete",
-        action: (consumer: Consumer) => {
-          deleteConsumer(consumer.name);
+        action: async (consumer: Consumer) => {
+          await deleteConsumer(consumer.name);
         },
       },
     ];
