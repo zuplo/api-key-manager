@@ -31,7 +31,7 @@ export default function KeyManager({ apiUrl, accessToken }: Props) {
         setIsCreating(false);
       }
     },
-    [provider]
+    [provider],
   );
 
   const deleteConsumer = useCallback(
@@ -47,7 +47,7 @@ export default function KeyManager({ apiUrl, accessToken }: Props) {
         setShowIsLoading(false);
       }
     },
-    [provider]
+    [provider],
   );
 
   function clickCreateConsumer() {

@@ -43,7 +43,7 @@ function getConfig({ postcssPlugins } = {}) {
               pluginData: {
                 pathDir: path.join(args.resolveDir, args.path),
               },
-            })
+            }),
           );
           build.onLoad(
             { filter: /#css-module$/, namespace: "css-module" },
@@ -69,7 +69,7 @@ function getConfig({ postcssPlugins } = {}) {
                   pluginData.pathDir
                 }"; export default ${JSON.stringify(cssModule)}`,
               };
-            }
+            },
           );
           build.onResolve(
             { filter: /\.module\.css$/, namespace: "css-module" },
@@ -77,14 +77,14 @@ function getConfig({ postcssPlugins } = {}) {
               path: path.join(args.resolveDir, args.path, "#css-module-data"),
               namespace: "css-module",
               pluginData: args.pluginData,
-            })
+            }),
           );
           build.onLoad(
             { filter: /#css-module-data$/, namespace: "css-module" },
             (args) => ({
               contents: args.pluginData.css,
               loader: "css",
-            })
+            }),
           );
         },
       },

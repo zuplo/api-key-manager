@@ -80,7 +80,7 @@ import {
 const MyComponent = () => {
   const defaultProvider = new DefaultApiKeyManagerProvider(
     "<BASE_URL>",
-    "<ACCESS_TOKEN>"
+    "<ACCESS_TOKEN>",
   );
 
   return <ApiKeyManager provider={provider} />;

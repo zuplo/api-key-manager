@@ -6,7 +6,7 @@ export interface ApiKeyManagerProvider {
   deleteKey: (consumerName: string, keyId: string) => Promise<void>;
   updateConsumerDescription: (
     consumerName: string,
-    description: string
+    description: string,
   ) => Promise<void>;
   refresh: () => void;
   registerOnRefresh: (callback: () => void) => RegisterHandle;

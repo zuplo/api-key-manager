@@ -17,7 +17,7 @@ interface MutationOptions {
 
 export function useMiniMutation<TVariables>(
   mutationFn: MutationFn<TVariables>,
-  options?: MutationOptions
+  options?: MutationOptions,
 ): MutationState<TVariables> {
   const [isLoading, setIsLoading] = useState(false);
   const [wasSuccessful, setWasSuccessful] = useState(false);
