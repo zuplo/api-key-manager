@@ -17,12 +17,13 @@ function getConfig({ postcssPlugins } = {}) {
     entry: {
       index: "src/index.tsx",
     },
-    external: ["react", "dayjs"],
+    external: ["react"],
+    bundle: true,
     splitting: false,
     sourcemap: true,
+    treeshake: true,
     // eslint-disable-next-line no-undef
     clean: process.env.NODE_ENV === "PRODUCTION",
-    treeshake: false,
     dts: true,
     format: ["esm", "cjs"],
     esbuildOptions: (options) => {
@@ -43,7 +44,7 @@ function getConfig({ postcssPlugins } = {}) {
               pluginData: {
                 pathDir: path.join(args.resolveDir, args.path),
               },
-            }),
+            })
           );
           build.onLoad(
             { filter: /#css-module$/, namespace: "css-module" },
@@ -69,7 +70,7 @@ function getConfig({ postcssPlugins } = {}) {
                   pluginData.pathDir
                 }"; export default ${JSON.stringify(cssModule)}`,
               };
-            },
+            }
           );
           build.onResolve(
             { filter: /\.module\.css$/, namespace: "css-module" },
@@ -77,14 +78,14 @@ function getConfig({ postcssPlugins } = {}) {
               path: path.join(args.resolveDir, args.path, "#css-module-data"),
               namespace: "css-module",
               pluginData: args.pluginData,
-            }),
+            })
           );
           build.onLoad(
             { filter: /#css-module-data$/, namespace: "css-module" },
             (args) => ({
               contents: args.pluginData.css,
               loader: "css",
-            }),
+            })
           );
         },
       },
