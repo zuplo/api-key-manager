@@ -9,14 +9,27 @@ import { useEffect } from "react";
 
 interface Props {
   menuItems?: MenuItem[];
+  theme?: "light" | "dark";
   provider: ApiKeyManagerProvider;
   showIsLoading?: boolean;
 }
 
-function ApiKeyManager({ provider, menuItems, showIsLoading }: Props) {
+const getSystemDefaultThemePreference = (): "dark" | "light" => {
+  if (
+    typeof window !== "undefined" &&
+    window.matchMedia("(prefers-color-scheme: dark)").matches
+  ) {
+    return "dark";
+  }
+  return "light";
+};
+
+function ApiKeyManager({ provider, menuItems, showIsLoading, theme }: Props) {
   const queryEngine = useProviderQueryEngine(provider);
   const query = queryEngine.useMyConsumersQuery();
-
+  const themeStyle = `zp-key-manager--${
+    theme ?? getSystemDefaultThemePreference()
+  }`;
   useEffect(() => {
     const handle = provider.registerOnRefresh(() => {
       queryEngine.refreshMyConsumers();
@@ -27,7 +40,11 @@ function ApiKeyManager({ provider, menuItems, showIsLoading }: Props) {
   }, [provider, queryEngine]);
 
   if (!query.data && query.isLoading) {
-    return <ConsumerLoading />;
+    return (
+      <div className={themeStyle}>
+        <ConsumerLoading />
+      </div>
+    );
   }
 
   if (query.error) {
@@ -49,23 +66,28 @@ function ApiKeyManager({ provider, menuItems, showIsLoading }: Props) {
   const consumers = query.data?.data;
 
   if (!consumers || consumers.length === 0) {
-    return <div className="py-4">You have no API keys</div>;
+    return (
+      <div className={themeStyle}>
+        <div className={styles["no-keys-message"]}>You have no API keys</div>
+      </div>
+    );
   }
 
   const loading = query.isLoading || showIsLoading === true ? true : false;
-
   return (
     <QueryEngineContext.Provider value={queryEngine}>
-      {consumers.map((c) => {
-        return (
-          <ConsumerControl
-            key={c.name}
-            consumer={c}
-            menuItems={menuItems}
-            isLoading={loading}
-          />
-        );
-      })}
+      <div className={themeStyle}>
+        {consumers.map((c) => {
+          return (
+            <ConsumerControl
+              key={c.name}
+              consumer={c}
+              menuItems={menuItems}
+              isLoading={loading}
+            />
+          );
+        })}
+      </div>
     </QueryEngineContext.Provider>
   );
 }

@@ -12,10 +12,18 @@
   @apply absolute top-0 right-0 z-50 shadow-md rounded bg-white;
 }
 
+.dark .simple-menu-dialog {
+  background-color: #1a1f36;
+}
+
 .simple-menu-item-button {
-  @apply whitespace-nowrap rounded w-full hover:bg-slate-50 px-3 py-1 text-right;
+  @apply whitespace-nowrap rounded w-full hover:bg-slate-50 hover:dark:text-white px-3 py-1 text-right;
+}
+
+.dark .simple-menu-item-button:hover {
+  background-color: #2a2f45;
 }
 
 .simple-menu-dropdown {
-  @apply text-zinc-800 p-1;
+  @apply text-zinc-800 dark:text-zinc-200 p-1;
 }

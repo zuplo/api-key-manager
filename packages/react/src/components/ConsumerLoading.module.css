@@ -1,9 +1,13 @@
 .consumer-loading-container {
-  @apply rounded-lg bg-slate-50 border-zinc-200 border mb-5;
+  @apply rounded-lg bg-slate-50 border-zinc-200 dark:border-none border mb-5;
+}
+
+.dark .consumer-loading-container {
+  background-color: #4f566b;
 }
 
 .consumer-loading-header {
-  @apply flex flex-row border-b border-zinc-200 justify-between items-center;
+  @apply flex flex-row border-b border-zinc-200 dark:border-none justify-between items-center;
 }
 
 .consumer-loading-pulse {
@@ -15,11 +19,15 @@
 }
 
 .consumer-loading-ellipsis-icon {
-  @apply h-5 w-5;
+  @apply h-5 w-5 dark:text-white;
 }
 
 .consumer-loading-content {
   @apply bg-white flex flex-col rounded-b-lg p-4 py-2;
+}
+
+.dark .consumer-loading-content {
+  background-color: #2a2f45;
 }
 
 .key-loading-container {

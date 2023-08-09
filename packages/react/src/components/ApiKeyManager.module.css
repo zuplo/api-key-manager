@@ -21,3 +21,7 @@
 .query-error-heading-text {
   @apply font-bold;
 }
+
+.no-keys-message {
+  @apply py-4 dark:text-white;
+}

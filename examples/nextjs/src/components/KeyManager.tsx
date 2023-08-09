@@ -2,8 +2,9 @@ import ApiKeyManager, {
   Consumer,
   DefaultApiKeyManagerProvider,
 } from "@zuplo/react-api-key-manager";
-import { useCallback, useMemo, useState } from "react";
+import { useCallback, useContext, useMemo, useState } from "react";
 import Spinner from "./Spinner";
+import { ThemeContext } from "@/contexts/ThemeContext";
 
 interface Props {
   apiUrl: string;
@@ -11,6 +12,7 @@ interface Props {
 }
 
 export default function KeyManager({ apiUrl, accessToken }: Props) {
+  const [theme] = useContext(ThemeContext);
   const [isCreating, setIsCreating] = useState(false);
   const [showIsLoading, setShowIsLoading] = useState(false);
 
@@ -74,6 +76,7 @@ export default function KeyManager({ apiUrl, accessToken }: Props) {
         provider={provider}
         menuItems={menuItems}
         showIsLoading={showIsLoading}
+        theme={theme}
       />
       <button
         onClick={clickCreateConsumer}
