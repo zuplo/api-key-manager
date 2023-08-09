@@ -4,12 +4,15 @@ export default {
   theme: {
     extend: {
       colors: {
-        "consumers-header-background": "#4f566b",
-        "consumers-keys-background": "#2a2f45",
-        "consumer-menu-hover": "#697386",
-        "key-action-background": "#3c4257",
-        "menu-background": "#1a1f36",
-        "menu-hover": "#2a2f45",
+        // Do NOT use this for colors, as a bug in the tailwind css export will
+        // prevent the tailwind.css from picking these up
+        // Instead use selectors and values directly
+        // Ex. for dark mode use
+        /**
+         * .dark .simple-menu-dialog {
+         *     background-color: #1a1f36;
+         *  }
+         */
       },
     },
   },

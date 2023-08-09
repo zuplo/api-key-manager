@@ -156,8 +156,8 @@ const ConsumerControl = ({
         )}
         <div className={styles["consumer-menu-button-wrapper"]}>
           {isLoading || keyRollMutation.isLoading ? (
-            <div className={styles["consumer-control-spinner-container"]}>
-              <Spinner className={styles["consumer-control-spinner"]} />
+            <div className={styles["consumer-control-menu-spinner-container"]}>
+              <Spinner className={styles["consumer-control-menu-spinner"]} />
             </div>
           ) : (
             <SimpleMenu items={fancyDropDownMenuItems ?? []}>

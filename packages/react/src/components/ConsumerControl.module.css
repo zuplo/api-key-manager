@@ -1,6 +1,10 @@
 /* ConsumerControl.module.css */
 .consumer-control-container {
-  @apply rounded-lg bg-slate-50 border-zinc-200 dark:bg-consumers-header-background dark:border-none border mb-5 selection:dark:text-zinc-900 selection:dark:bg-white;
+  @apply rounded-lg bg-slate-50 border-zinc-200  dark:border-none border mb-5 selection:dark:text-zinc-900 selection:dark:bg-white;
+}
+
+:is(.dark .consumer-control-container) {
+  background-color: #4f566b;
 }
 
 .consumer-control-header {
@@ -17,6 +21,14 @@
 
 .consumer-control-button {
   @apply hover:bg-slate-300 hover:dark:bg-slate-400 text-zinc-700 dark:text-white px-2 bg-slate-200 dark:bg-slate-500 rounded flex flex-row items-center text-sm m-1 my-2 h-8;
+}
+
+.consumer-control-menu-spinner-container {
+  @apply h-full pb-[10px] pt-1 mr-1;
+}
+
+.consumer-control-menu-spinner {
+  @apply h-5 w-5 animate-spin dark:text-white;
 }
 
 .consumer-control-spinner-container {
@@ -44,7 +56,11 @@
 }
 
 .consumer-control-menu-button {
-  @apply hover:bg-slate-200 hover:dark:bg-consumer-menu-hover rounded p-1;
+  @apply hover:bg-slate-200 rounded p-1;
+}
+
+.dark .consumer-control-menu-button:hover {
+  background-color: #697386;
 }
 
 .consumer-control-menu-icon {
@@ -84,7 +100,11 @@
 }
 
 .consumer-control-content {
-  @apply bg-white dark:bg-consumers-keys-background rounded-b-lg p-4;
+  @apply bg-white rounded-b-lg p-4;
+}
+
+.dark .consumer-control-content {
+  background-color: #2a2f45;
 }
 
 .consumer-control-key-control {

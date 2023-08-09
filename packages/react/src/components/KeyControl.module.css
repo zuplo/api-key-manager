@@ -12,7 +12,15 @@
 }
 
 .key-control-button {
-  @apply rounded p-1 hover:bg-slate-200 hover:dark:bg-key-action-background;
+  @apply rounded p-1;
+}
+
+.key-control-button:hover {
+  @apply bg-slate-200;
+}
+
+.dark .key-control-button:hover {
+  background-color: #3c4257;
 }
 
 .key-control-button-active {
