@@ -37,3 +37,8 @@ export interface ApiKey {
   expiresOn: string | null;
   key: string;
 }
+
+export interface DataModel {
+  consumers?: Consumer[];
+  isFetching: boolean;
+}
