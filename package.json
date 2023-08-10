@@ -6,7 +6,7 @@
   "author": "Zuplo",
   "repository": {
     "type": "git",
-    "url": "https://github.com/zuplo/react-api-key-manager"
+    "url": "https://github.com/zuplo/api-key-manager"
   },
   "scripts": {
     "build": "npm run build --workspace packages/react",
