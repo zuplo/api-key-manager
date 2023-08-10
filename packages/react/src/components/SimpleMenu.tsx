@@ -1,21 +1,22 @@
 import { cloneElement, useEffect, useRef, useState } from "react";
 
 import styles from "./SimpleMenu.module.css";
-import { MenuItem } from "..";
+import { Consumer, MenuItem } from "..";
 
 interface Props {
+  consumer: Consumer;
   disabled?: boolean;
   items: MenuItem[];
   children: JSX.Element;
 }
 
-export function SimpleMenu({ disabled, items, children }: Props) {
+export function SimpleMenu({ consumer, disabled, items, children }: Props) {
   const [isOpen, setIsOpen] = useState(false);
   const buttonRef = useRef<HTMLButtonElement>(null);
 
-  function click(action: () => void) {
+  function click(action: (consumer: Consumer) => void) {
     setIsOpen(false);
-    action();
+    action(consumer);
   }
 
   useEffect(() => {

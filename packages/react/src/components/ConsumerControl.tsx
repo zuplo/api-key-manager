@@ -190,7 +190,7 @@ const ConsumerControl = ({
                 <Spinner className={styles["consumer-control-menu-spinner"]} />
               </div>
             ) : (
-              <SimpleMenu items={withCustomMenuItems ?? []}>
+              <SimpleMenu consumer={consumer} items={withCustomMenuItems ?? []}>
                 <div className={styles["consumer-control-menu-button"]}>
                   <EllipsisVerticalIcon
                     className={styles["consumer-control-menu-icon"]}
