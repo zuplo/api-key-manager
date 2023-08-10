@@ -6,6 +6,7 @@ import styles from "./ApiKeyManager.module.css";
 import { useEffect, useState } from "react";
 import { DataContext, ProviderContext } from "./context";
 import CreateConsumer from "./CreateConsumer";
+import { RefreshProvider, refreshEventName } from "../refresh-provider";
 
 type ThemeOptions = "light" | "dark" | "system";
 type Theme = "light" | "dark";
@@ -18,6 +19,7 @@ interface Props {
   provider: ApiKeyManagerProvider;
   enableCreateConsumer?: boolean;
   enableDeleteConsumer?: boolean;
+  refreshProvider?: RefreshProvider;
 }
 
 const getSystemDefaultThemePreference = (): Theme => {
@@ -48,6 +50,7 @@ function ApiKeyManager({
   theme = "light",
   enableCreateConsumer,
   enableDeleteConsumer,
+  refreshProvider,
 }: Props) {
   const themeStyle = `zp-key-manager--${getTheme(theme)}`;
   const [dataModel, setDataModel] = useState<DataModel>(DEFAULT_DATA_MODEL);
@@ -63,6 +66,21 @@ function ApiKeyManager({
       console.error(err);
     }
   };
+
+  useEffect(() => {
+    if (refreshProvider) {
+      const refreshCallback = () => {
+        void loadData(provider);
+      };
+
+      refreshProvider.addEventListener(refreshEventName, refreshCallback);
+
+      return () => {
+        refreshProvider.removeEventListener(refreshEventName, refreshCallback);
+      };
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [refreshProvider, provider]);
 
   useEffect(() => {
     void loadData(provider);
