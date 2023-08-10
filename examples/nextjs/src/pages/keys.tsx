@@ -29,7 +29,7 @@ function Keys() {
 
   // If the user is not authenticated, redirect to the index page
   if (!isLoading && !isAuthenticated) {
-    console.log("Keys not authenticated");
+    console.warn("Keys not authenticated");
     router.push("/");
   }
 

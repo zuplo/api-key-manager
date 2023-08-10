@@ -88,8 +88,6 @@ function ApiKeyManager({
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [provider]);
 
-  console.log("dataModel", dataModel);
-
   if (!dataModel.consumers && dataModel.isFetching) {
     return (
       <div className={themeStyle}>
