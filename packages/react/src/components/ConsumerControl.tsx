@@ -23,11 +23,11 @@ interface ConsumerControlProps {
 }
 
 export const ErrorContext = createContext<
-  [string | undefined, (error: string) => void]
+  [string | undefined, (error: string | undefined) => void]
 >([undefined, () => {}]);
 
 // 7 days
-const EXPIRY_PERIOD = 1000 * 60 * 60 * 24 * 7;
+const EXPIRY_PERIOD_MS = 1000 * 60 * 60 * 24 * 7;
 
 const ConsumerControl = ({
   consumer,
@@ -51,8 +51,8 @@ const ConsumerControl = ({
         isFetching: dataModel?.isFetching,
         consumers: result.data,
       });
-
       setEdit(false);
+      setError(undefined);
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
     } catch (err: any) {
       setError(err.message);
@@ -66,16 +66,16 @@ const ConsumerControl = ({
       setIsLoading(true);
       await provider.rollKey(
         consumer.name,
-        new Date(Date.now() + EXPIRY_PERIOD),
+        new Date(Date.now() + EXPIRY_PERIOD_MS),
       );
       const result = await provider.getConsumers();
       setDataModel({
         isFetching: dataModel?.isFetching,
         consumers: result.data,
       });
-      // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    } catch (err: any) {
-      setError(err.message);
+      setError(undefined);
+    } catch (err) {
+      setError((err as Error).message);
     } finally {
       setIsLoading(false);
     }
@@ -95,9 +95,9 @@ const ConsumerControl = ({
         ...dataModel,
         consumers: result.data,
       });
-      // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    } catch (err: any) {
-      setError(err.message);
+      setError(undefined);
+    } catch (err) {
+      setError((err as Error).message);
     } finally {
       setIsLoading(false);
     }

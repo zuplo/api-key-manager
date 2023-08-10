@@ -3,7 +3,7 @@ import ConsumerControl from "./ConsumerControl";
 import ConsumerLoading from "./ConsumerLoading";
 import { XCircleIcon } from "./icons";
 import styles from "./ApiKeyManager.module.css";
-import { useCallback, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { DataContext, ProviderContext } from "./context";
 import CreateConsumer from "./CreateConsumer";
 
@@ -43,21 +43,19 @@ function ApiKeyManager({
   const [dataModel, setDataModel] = useState<DataModel>(DEFAULT_DATA_MODEL);
   const [error, setError] = useState<string | undefined>(undefined);
 
-  const loadData = useCallback(async (prov: ApiKeyManagerProvider) => {
+  const loadData = async (prov: ApiKeyManagerProvider) => {
     try {
       setDataModel({ ...dataModel, isFetching: true });
       const result = await prov.getConsumers();
       setDataModel({ consumers: result.data, isFetching: false });
-      // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    } catch (err: any) {
-      setError(err.message);
+    } catch (err) {
+      setError((err as Error).message);
       console.error(err);
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  };
 
   useEffect(() => {
-    loadData(provider);
+    void loadData(provider);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [provider]);
 

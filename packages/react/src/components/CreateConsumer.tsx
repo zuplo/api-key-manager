@@ -13,6 +13,8 @@ export default function CreateConsumer() {
   const [isCreating, setIsCreating] = useState<boolean>(false);
   const [isInvalid, setIsInvalid] = useState<boolean>(false);
 
+  // TODO - handle errors
+
   async function handleCreateConsumer() {
     try {
       if (label.trim().length === 0) {
@@ -32,9 +34,9 @@ export default function CreateConsumer() {
       const result = await provider.getConsumers();
       setDataModel({ ...dataModel, consumers: result.data });
       setEditMode(false);
-      // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    } catch (err: any) {
-      setError(err.message);
+      setError(undefined);
+    } catch (err) {
+      setError((err as Error).message);
     } finally {
       setIsCreating(false);
     }
