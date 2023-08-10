@@ -111,11 +111,11 @@ const ConsumerControl = ({
     icon: PencilSquareIcon({}),
   };
 
+  // You can't roll keys if there are no keys to roll
+  const numRollableKeys = consumer.apiKeys.filter((k) => !k.expiresOn).length;
+  const enableRollKeys = numRollableKeys > 0;
   const rollKeysMenuItem: MenuItem = {
-    label:
-      consumer.apiKeys.filter((k) => !k.expiresOn).length > 1
-        ? "Roll keys"
-        : "Roll key",
+    label: numRollableKeys > 1 ? "Roll keys" : "Roll key",
     action: handleRollKey,
     icon: ArrowPathIcon({}),
   };
@@ -126,8 +126,10 @@ const ConsumerControl = ({
     icon: TrashIcon({}),
   };
 
-  const initialMenuItems = [editLabelMenuItem, rollKeysMenuItem];
-
+  const initialMenuItems: MenuItem[] = [editLabelMenuItem];
+  if (enableRollKeys) {
+    initialMenuItems.push(rollKeysMenuItem);
+  }
   if (enableDeleteConsumer) {
     initialMenuItems.push(deleteConsumerMenuItem);
   }
