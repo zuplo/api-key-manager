@@ -12,7 +12,7 @@ export interface ApiKeyManagerProvider {
 
 export interface MenuItem {
   label: string;
-  action: () => void;
+  action: (consumer: Consumer) => void;
   icon?: JSX.Element;
 }
 
