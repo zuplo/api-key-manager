@@ -1,5 +1,6 @@
 import ApiKeyManager, {
   DefaultApiKeyManagerProvider,
+  RefreshProvider,
 } from "@zuplo/react-api-key-manager";
 import { useContext, useMemo } from "react";
 import { ThemeContext } from "@/contexts/ThemeContext";
@@ -12,16 +13,16 @@ interface Props {
 export default function KeyManager({ apiUrl, accessToken }: Props) {
   const [theme] = useContext(ThemeContext);
 
-  const provider = useMemo(() => {
-    return new DefaultApiKeyManagerProvider(apiUrl, accessToken);
-  }, [apiUrl, accessToken]);
+  const provider = new DefaultApiKeyManagerProvider(apiUrl, accessToken);
 
   return (
-    <ApiKeyManager
-      provider={provider}
-      theme={theme}
-      enableCreateConsumer={true}
-      enableDeleteConsumer={true}
-    />
+    <>
+      <ApiKeyManager
+        provider={provider}
+        theme={theme}
+        enableCreateConsumer={true}
+        enableDeleteConsumer={true}
+      />
+    </>
   );
 }

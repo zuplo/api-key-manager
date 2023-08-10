@@ -1,5 +1,3 @@
-export class RegisterHandle {}
-
 export interface ApiKeyManagerProvider {
   getConsumers: () => Promise<ConsumerData>;
   rollKey: (consumerName: string, expiresOn: Date) => Promise<void>;
