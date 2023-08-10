@@ -7,15 +7,20 @@ import { useEffect, useState } from "react";
 import { DataContext, ProviderContext } from "./context";
 import CreateConsumer from "./CreateConsumer";
 
+type ThemeOptions = "light" | "dark" | "system";
+type Theme = "light" | "dark";
 interface Props {
   menuItems?: MenuItem[];
-  theme?: "light" | "dark";
+  /**
+   * @default "light"
+   */
+  theme?: ThemeOptions;
   provider: ApiKeyManagerProvider;
   enableCreateConsumer?: boolean;
   enableDeleteConsumer?: boolean;
 }
 
-const getSystemDefaultThemePreference = (): "dark" | "light" => {
+const getSystemDefaultThemePreference = (): Theme => {
   if (
     typeof window !== "undefined" &&
     window.matchMedia("(prefers-color-scheme: dark)").matches
@@ -30,16 +35,21 @@ const DEFAULT_DATA_MODEL: DataModel = {
   consumers: undefined,
 };
 
+const getTheme = (theme: ThemeOptions): Theme => {
+  if (theme === "system") {
+    return getSystemDefaultThemePreference();
+  }
+  return theme;
+};
+
 function ApiKeyManager({
   provider,
   menuItems,
-  theme,
+  theme = "light",
   enableCreateConsumer,
   enableDeleteConsumer,
 }: Props) {
-  const themeStyle = `zp-key-manager--${
-    theme ?? getSystemDefaultThemePreference()
-  }`;
+  const themeStyle = `zp-key-manager--${getTheme(theme)}`;
   const [dataModel, setDataModel] = useState<DataModel>(DEFAULT_DATA_MODEL);
   const [error, setError] = useState<string | undefined>(undefined);
 

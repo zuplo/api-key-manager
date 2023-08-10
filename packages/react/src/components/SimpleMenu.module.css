@@ -9,11 +9,7 @@
 }
 
 .simple-menu-dialog {
-  @apply absolute top-0 right-0 z-50 shadow-md rounded bg-white;
-}
-
-.dark .simple-menu-dialog {
-  background-color: #1a1f36;
+  @apply absolute top-0 right-0 z-50 shadow-md rounded bg-white dark:bg-[#1a1f36];
 }
 
 .simple-menu-item-button {
