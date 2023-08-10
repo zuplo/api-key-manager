@@ -1,10 +1,11 @@
-import { useEffect, useRef, useState } from "react";
+import { cloneElement, useEffect, useRef, useState } from "react";
 
 import styles from "./SimpleMenu.module.css";
+import { MenuItem } from "..";
 
 interface Props {
   disabled?: boolean;
-  items: { label: string; action: () => void }[];
+  items: MenuItem[];
   children: JSX.Element;
 }
 
@@ -52,7 +53,14 @@ export function SimpleMenu({ disabled, items, children }: Props) {
                   onClick={() => click(item.action)}
                   className={styles["simple-menu-item-button"]}
                 >
-                  {item.label}
+                  {item.icon && (
+                    <>
+                      {cloneElement(item.icon, {
+                        className: styles["simple-menu-item-icon"],
+                      })}
+                    </>
+                  )}
+                  <span>{item.label}</span>
                 </button>
               ))}
             </div>

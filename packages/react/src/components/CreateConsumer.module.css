@@ -1,0 +1,28 @@
+
+.create-consumer-button {
+  @apply bg-pink-500 rounded hover:bg-pink-700 p-2 text-white flex-none;
+}
+
+.create-consumer-main-button {
+  @apply text-white rounded bg-pink-500 hover:bg-pink-700 p-2 px-4;
+}
+
+.create-consumer-icon {
+  @apply w-5 h-auto m-1;
+}
+
+.create-consumer-spinner {
+  @apply w-5 h-auto m-1 animate-spin;
+}
+
+.create-consumer-label {
+  @apply rounded shadow-md p-2 flex-grow border border-gray-200 dark:bg-slate-700 dark:border-slate-500 dark:text-white; 
+}
+
+.create-consumer-label-invalid {
+  @apply rounded shadow-md p-2 flex-grow border-2 border-red-500 bg-red-50 dark:border-red-800 dark:bg-red-950 dark:text-white;
+}
+
+.create-consumer-container {
+  @apply flex flex-row items-center gap-x-2 w-full;
+}

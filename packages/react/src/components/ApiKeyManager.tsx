@@ -1,11 +1,11 @@
-import { QueryEngineContext } from "../context";
-import { ApiKeyManagerProvider, MenuItem } from "../interfaces";
-import { useProviderQueryEngine } from "../useProviderQueryEngine";
+import { ApiKeyManagerProvider, DataModel, MenuItem } from "../interfaces";
 import ConsumerControl from "./ConsumerControl";
 import ConsumerLoading from "./ConsumerLoading";
 import { XCircleIcon } from "./icons";
 import styles from "./ApiKeyManager.module.css";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
+import { DataContext, ProviderContext } from "./context";
+import CreateConsumer from "./CreateConsumer";
 
 type ThemeOptions = "light" | "dark" | "system";
 type Theme = "light" | "dark";
@@ -16,7 +16,8 @@ interface Props {
    */
   theme?: ThemeOptions;
   provider: ApiKeyManagerProvider;
-  showIsLoading?: boolean;
+  enableCreateConsumer?: boolean;
+  enableDeleteConsumer?: boolean;
 }
 
 const getSystemDefaultThemePreference = (): Theme => {
@@ -29,6 +30,11 @@ const getSystemDefaultThemePreference = (): Theme => {
   return "light";
 };
 
+const DEFAULT_DATA_MODEL: DataModel = {
+  isFetching: false,
+  consumers: undefined,
+};
+
 const getTheme = (theme: ThemeOptions): Theme => {
   if (theme === "system") {
     return getSystemDefaultThemePreference();
@@ -39,22 +45,31 @@ const getTheme = (theme: ThemeOptions): Theme => {
 function ApiKeyManager({
   provider,
   menuItems,
-  showIsLoading,
   theme = "light",
+  enableCreateConsumer,
+  enableDeleteConsumer,
 }: Props) {
-  const queryEngine = useProviderQueryEngine(provider);
-  const query = queryEngine.useMyConsumersQuery();
   const themeStyle = `zp-key-manager--${getTheme(theme)}`;
-  useEffect(() => {
-    const handle = provider.registerOnRefresh(() => {
-      queryEngine.refreshMyConsumers();
-    });
-    return () => {
-      provider.unregisterOnRefresh(handle);
-    };
-  }, [provider, queryEngine]);
+  const [dataModel, setDataModel] = useState<DataModel>(DEFAULT_DATA_MODEL);
+  const [error, setError] = useState<string | undefined>(undefined);
 
-  if (!query.data && query.isLoading) {
+  const loadData = async (prov: ApiKeyManagerProvider) => {
+    try {
+      setDataModel({ ...dataModel, isFetching: true });
+      const result = await prov.getConsumers();
+      setDataModel({ consumers: result.data, isFetching: false });
+    } catch (err) {
+      setError((err as Error).message);
+      console.error(err);
+    }
+  };
+
+  useEffect(() => {
+    void loadData(provider);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [provider]);
+
+  if (!dataModel.consumers && dataModel.isFetching) {
     return (
       <div className={themeStyle}>
         <ConsumerLoading />
@@ -62,7 +77,7 @@ function ApiKeyManager({
     );
   }
 
-  if (query.error) {
+  if (error) {
     return (
       <div className={styles["query-error-border"]}>
         <div className={styles["query-error-body "]}>
@@ -71,16 +86,14 @@ function ApiKeyManager({
             <span className={styles["query-error-heading-text"]}>Error</span>
           </div>
         </div>
-        <div className={styles["query-error-message"]}>
-          &quot;{query.error.toString()}&quot;
-        </div>
+        <div className={styles["query-error-message"]}>&quot;{error}&quot;</div>
       </div>
     );
   }
 
-  const consumers = query.data?.data;
+  const consumers = dataModel.consumers ?? [];
 
-  if (!consumers || consumers.length === 0) {
+  if (consumers.length === 0) {
     return (
       <div className={themeStyle}>
         <div className={styles["no-keys-message"]}>You have no API keys</div>
@@ -88,22 +101,24 @@ function ApiKeyManager({
     );
   }
 
-  const loading = query.isLoading || showIsLoading === true ? true : false;
   return (
-    <QueryEngineContext.Provider value={queryEngine}>
-      <div className={themeStyle}>
-        {consumers.map((c) => {
-          return (
-            <ConsumerControl
-              key={c.name}
-              consumer={c}
-              menuItems={menuItems}
-              isLoading={loading}
-            />
-          );
-        })}
-      </div>
-    </QueryEngineContext.Provider>
+    <ProviderContext.Provider value={provider}>
+      <DataContext.Provider value={[dataModel, setDataModel]}>
+        <div className={themeStyle}>
+          {consumers.map((c) => {
+            return (
+              <ConsumerControl
+                key={c.name}
+                consumer={c}
+                menuItems={menuItems}
+                enableDeleteConsumer={enableDeleteConsumer}
+              />
+            );
+          })}
+        </div>
+        {enableCreateConsumer && <CreateConsumer />}
+      </DataContext.Provider>
+    </ProviderContext.Provider>
   );
 }
 

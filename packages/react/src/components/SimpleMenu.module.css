@@ -13,7 +13,7 @@
 }
 
 .simple-menu-item-button {
-  @apply whitespace-nowrap rounded w-full hover:bg-slate-50 hover:dark:text-white px-3 py-1 text-right;
+  @apply whitespace-nowrap rounded w-full hover:bg-slate-50 hover:dark:text-white px-3 py-1 text-right flex flex-row items-center;
 }
 
 .dark .simple-menu-item-button:hover {
@@ -22,4 +22,8 @@
 
 .simple-menu-dropdown {
   @apply text-zinc-800 dark:text-zinc-200 p-1;
+}
+
+.simple-menu-item-icon {
+  @apply h-4 w-auto mr-2;
 }

@@ -1,9 +1,9 @@
 import dayjs from "dayjs";
 import localizedFormat from "dayjs/plugin/localizedFormat";
 import relativeTime from "dayjs/plugin/relativeTime";
-import { useEffect, useState } from "react";
+import { useContext, useState } from "react";
 import { ApiKey } from "../interfaces";
-import { useQueryEngineContext } from "../useQueryEngineContext";
+
 import {
   CheckIcon,
   DocumentDuplicateIcon,
@@ -14,11 +14,12 @@ import {
 } from "./icons";
 
 import styles from "./KeyControl.module.css";
+import { useDataContext, useProviderContext } from "./context";
+import { ErrorContext } from "./ConsumerControl";
 
 interface KeyControlProps {
   consumerName: string;
   apiKey: ApiKey;
-  onMutationComplete: (error: unknown) => void;
 }
 
 dayjs.extend(relativeTime);
@@ -35,15 +36,14 @@ function mask(value: string, mask: boolean) {
   return maskedPart + lastEightChars;
 }
 
-const KeyControl = ({
-  apiKey,
-  consumerName,
-  onMutationComplete,
-}: KeyControlProps) => {
+const KeyControl = ({ apiKey, consumerName }: KeyControlProps) => {
   const [masked, setMasked] = useState<boolean>(true);
   const [copied, setCopied] = useState<boolean>(false);
-  const { useDeleteKeyMutation } = useQueryEngineContext();
-  const deleteKeyMutation = useDeleteKeyMutation();
+
+  const [dataModel, setDataModel] = useDataContext();
+  const [keyDeleting, setKeyDeleting] = useState<boolean>(false);
+  const [, setError] = useContext(ErrorContext);
+  const provider = useProviderContext();
 
   function copy(value: string) {
     navigator.clipboard.writeText(value);
@@ -53,21 +53,23 @@ const KeyControl = ({
     }, 2000);
   }
 
-  useEffect(() => {
-    onMutationComplete(deleteKeyMutation.error);
-    // We use the isLoading flag here to reset the error state whenever the
-    // mutation is triggered
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [deleteKeyMutation.isLoading]);
-
-  function handleDeleteKey() {
-    deleteKeyMutation.mutate({
-      consumerName: consumerName,
-      keyId: apiKey.id,
-    });
+  async function handleDeleteKey() {
+    try {
+      setKeyDeleting(true);
+      await provider.deleteKey(consumerName, apiKey.id);
+      const result = await provider.getConsumers();
+      setDataModel({
+        isFetching: dataModel.isFetching,
+        consumers: result.data,
+      });
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    } catch (err: any) {
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      setError(err.message);
+    } finally {
+      setKeyDeleting(false);
+    }
   }
-
-  const keyMutating = deleteKeyMutation.isLoading;
 
   return (
     <div>
@@ -106,7 +108,7 @@ const KeyControl = ({
             )}
           </button>
           {apiKey.expiresOn ? (
-            keyMutating ? (
+            keyDeleting ? (
               <div className={styles["key-control-spinner"]}>
                 <Spinner className={styles["key-control-spinner-icon"]} />
               </div>

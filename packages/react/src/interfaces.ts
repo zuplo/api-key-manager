@@ -8,14 +8,14 @@ export interface ApiKeyManagerProvider {
     consumerName: string,
     description: string,
   ) => Promise<void>;
-  refresh: () => void;
-  registerOnRefresh: (callback: () => void) => RegisterHandle;
-  unregisterOnRefresh: (handle: RegisterHandle) => void;
+  createConsumer?: (description: string) => Promise<void>;
+  deleteConsumer?: (consumerName: string) => Promise<void>;
 }
 
 export interface MenuItem {
   label: string;
-  action: (consumer: Consumer) => void;
+  action: () => void;
+  icon?: JSX.Element;
 }
 
 export interface ConsumerData {
@@ -36,4 +36,9 @@ export interface ApiKey {
   updatedOn: string;
   expiresOn: string | null;
   key: string;
+}
+
+export interface DataModel {
+  consumers?: Consumer[];
+  isFetching: boolean;
 }
