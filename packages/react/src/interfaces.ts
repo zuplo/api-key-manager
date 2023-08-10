@@ -10,9 +10,6 @@ export interface ApiKeyManagerProvider {
   ) => Promise<void>;
   createConsumer?: (description: string) => Promise<void>;
   deleteConsumer?: (consumerName: string) => Promise<void>;
-  refresh: () => void;
-  registerOnRefresh: (callback: () => void) => RegisterHandle;
-  unregisterOnRefresh: (handle: RegisterHandle) => void;
 }
 
 export interface MenuItem {

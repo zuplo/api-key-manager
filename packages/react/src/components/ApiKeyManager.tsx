@@ -61,21 +61,6 @@ function ApiKeyManager({
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [provider]);
 
-  useEffect(() => {
-    const handle = provider.registerOnRefresh(() => {
-      if (dataModel.isFetching) {
-        // don't refetch if fetching
-        return;
-      }
-      setDataModel({ ...dataModel, isFetching: true });
-      loadData(provider);
-      setDataModel({ consumers: dataModel.consumers, isFetching: false });
-    });
-    return () => {
-      provider.unregisterOnRefresh(handle);
-    };
-  }, [dataModel, loadData, provider]);
-
   if (!dataModel.consumers && dataModel.isFetching) {
     return (
       <div className={themeStyle}>
