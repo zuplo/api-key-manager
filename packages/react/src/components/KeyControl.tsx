@@ -75,6 +75,7 @@ const KeyControl = ({ apiKey, consumerName }: KeyControlProps) => {
     <div>
       <div className={styles["key-control-container"]}>
         <span
+          id="key-control-key"
           title={masked ? undefined : apiKey.key}
           className={styles["key-control-key"]}
         >
@@ -83,6 +84,7 @@ const KeyControl = ({ apiKey, consumerName }: KeyControlProps) => {
         <div className={styles["key-control-buttons"]}>
           <button
             title="Copy Key"
+            id="key-control-copy"
             className={styles["key-control-button"]}
             onClick={() => copy(apiKey.key)}
           >
@@ -95,6 +97,7 @@ const KeyControl = ({ apiKey, consumerName }: KeyControlProps) => {
             )}
           </button>
           <button
+            id="key-control-mask"
             className={styles["key-control-button"]}
             title={masked ? "Show Key" : "Hide Key"}
             onClick={() => {
@@ -114,6 +117,7 @@ const KeyControl = ({ apiKey, consumerName }: KeyControlProps) => {
               </div>
             ) : (
               <button
+                id="key-control-delete"
                 title="Delete Key"
                 onClick={handleDeleteKey}
                 className={styles["key-control-button"]}

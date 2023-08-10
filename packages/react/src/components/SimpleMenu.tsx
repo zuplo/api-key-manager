@@ -37,9 +37,11 @@ export function SimpleMenu({ consumer, disabled, items, children }: Props) {
   return (
     <div>
       <button
+        title={isOpen ? "Close consumer menu" : "Open consumer menu"}
         disabled={disabled}
         ref={buttonRef}
         onClick={toggleOpen}
+        id="consumer-menu-button"
         className={styles["simple-menu-button"]}
       >
         {children}
@@ -51,6 +53,10 @@ export function SimpleMenu({ consumer, disabled, items, children }: Props) {
               {items.map((item) => (
                 <button
                   key={item.label}
+                  id={`consumer-menu-option-${item.label
+                    .toLowerCase()
+                    .replace(" ", "-")}`}
+                  title={item.label}
                   onClick={() => click(item.action)}
                   className={styles["simple-menu-item-button"]}
                 >
