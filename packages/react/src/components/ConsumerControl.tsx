@@ -143,7 +143,7 @@ const ConsumerControl = ({
           {edit ? (
             <div className={styles["consumer-control-input-container"]}>
               <input
-                id="consumer-label-input"
+                data-test="consumer-label-input"
                 autoFocus={true}
                 onFocus={(event) => event.target.select()}
                 onKeyUp={(event) => {
@@ -156,7 +156,7 @@ const ConsumerControl = ({
                 defaultValue={consumer.description}
               />
               <button
-                id="consumer-label-save-button"
+                data-test="consumer-label-save-button"
                 className={styles["consumer-control-button"]}
                 disabled={descriptionUpdating}
                 onClick={handleDescriptionSave}
@@ -171,7 +171,7 @@ const ConsumerControl = ({
                 <span>Save</span>
               </button>
               <button
-                id="consumer-label-cancel-button"
+                data-test="consumer-label-cancel-button"
                 className={styles["consumer-control-button"]}
                 disabled={descriptionUpdating}
                 onClick={() => setEdit(false)}
@@ -182,7 +182,7 @@ const ConsumerControl = ({
             </div>
           ) : (
             <div
-              id="consumer-control-label"
+              data-test="consumer-control-label"
               className={styles["consumer-control-description"]}
             >
               {consumer.description ?? consumer.name}
@@ -219,7 +219,7 @@ const ConsumerControl = ({
               </div>
               <button
                 title="Dismiss error"
-                id="consumer-control-error-dismiss-button"
+                data-test="consumer-control-error-dismiss-button"
                 className={styles["consumer-control-error-dismiss"]}
                 onClick={() => setError(undefined)}
               >

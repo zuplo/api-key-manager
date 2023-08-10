@@ -41,7 +41,7 @@ export function SimpleMenu({ consumer, disabled, items, children }: Props) {
         disabled={disabled}
         ref={buttonRef}
         onClick={toggleOpen}
-        id="consumer-menu-button"
+        data-test="consumer-menu-button"
         className={styles["simple-menu-button"]}
       >
         {children}
@@ -53,7 +53,7 @@ export function SimpleMenu({ consumer, disabled, items, children }: Props) {
               {items.map((item) => (
                 <button
                   key={item.label}
-                  id={`consumer-menu-option-${item.label
+                  data-test={`consumer-menu-option-${item.label
                     .toLowerCase()
                     .replace(" ", "-")}`}
                   title={item.label}
