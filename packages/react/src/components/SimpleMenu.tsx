@@ -56,7 +56,7 @@ export function SimpleMenu({ disabled, items, children }: Props) {
                   {item.icon && (
                     <>
                       {cloneElement(item.icon, {
-                        className: "h-4 w-auto mr-2",
+                        className: styles["simple-menu-item-icon"],
                       })}
                     </>
                   )}
