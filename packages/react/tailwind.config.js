@@ -9,7 +9,7 @@ export default {
         // Instead use selectors and values directly
         // Ex. for dark mode use
         /**
-         * .dark .simple-menu-dialog {
+         * .dark .simple-menu-dialog:hover {
          *     background-color: #1a1f36;
          *  }
          */

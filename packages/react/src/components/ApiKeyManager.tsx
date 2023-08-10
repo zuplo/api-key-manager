@@ -7,14 +7,19 @@ import { XCircleIcon } from "./icons";
 import styles from "./ApiKeyManager.module.css";
 import { useEffect } from "react";
 
+type ThemeOptions = "light" | "dark" | "system";
+type Theme = "light" | "dark";
 interface Props {
   menuItems?: MenuItem[];
-  theme?: "light" | "dark";
+  /**
+   * @default "light"
+   */
+  theme?: ThemeOptions;
   provider: ApiKeyManagerProvider;
   showIsLoading?: boolean;
 }
 
-const getSystemDefaultThemePreference = (): "dark" | "light" => {
+const getSystemDefaultThemePreference = (): Theme => {
   if (
     typeof window !== "undefined" &&
     window.matchMedia("(prefers-color-scheme: dark)").matches
@@ -24,12 +29,22 @@ const getSystemDefaultThemePreference = (): "dark" | "light" => {
   return "light";
 };
 
-function ApiKeyManager({ provider, menuItems, showIsLoading, theme }: Props) {
+const getTheme = (theme: ThemeOptions): Theme => {
+  if (theme === "system") {
+    return getSystemDefaultThemePreference();
+  }
+  return theme;
+};
+
+function ApiKeyManager({
+  provider,
+  menuItems,
+  showIsLoading,
+  theme = "light",
+}: Props) {
   const queryEngine = useProviderQueryEngine(provider);
   const query = queryEngine.useMyConsumersQuery();
-  const themeStyle = `zp-key-manager--${
-    theme ?? getSystemDefaultThemePreference()
-  }`;
+  const themeStyle = `zp-key-manager--${getTheme(theme)}`;
   useEffect(() => {
     const handle = provider.registerOnRefresh(() => {
       queryEngine.refreshMyConsumers();
