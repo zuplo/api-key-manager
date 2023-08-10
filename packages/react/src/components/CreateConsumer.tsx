@@ -2,6 +2,7 @@ import { useContext, useState } from "react";
 import { ErrorContext } from "./ConsumerControl";
 import { useDataContext, useProviderContext } from "./context";
 import { CheckIcon, Spinner } from "./icons";
+import styles from "./CreateConsumer.module.css";
 
 export default function CreateConsumer() {
   const provider = useProviderContext();
@@ -50,7 +51,7 @@ export default function CreateConsumer() {
     return (
       <button
         onClick={() => setEditMode(true)}
-        className="text-white rounded bg-pink-500 hover:bg-pink-700 p-2 px-4"
+        className={styles["create-consumer-main-button"]}
       >
         Create new API Key
       </button>
@@ -58,27 +59,27 @@ export default function CreateConsumer() {
   }
 
   return (
-    <div className="flex flex-row items-center gap-x-2 w-full">
+    <div className={styles["create-consumer-container"]}>
       <input
         type="text"
         placeholder="Enter a label"
         value={label}
         onChange={handleLabelChange}
         autoFocus
-        className={`rounded shadow-md p-2 flex-1 ${
+        className={
           isInvalid
-            ? "border-2 border-red-500 bg-red-50"
-            : "border border-gray-200"
-        }`}
+            ? styles["create-consumer-input-invalid"]
+            : styles["create-consumer-input"]
+        }
       />
       <button
         onClick={handleCreateConsumer}
-        className="bg-pink-500 rounded hover:bg-pink-700 p-2 text-white flex-0"
+        className={styles["create-consumer-button"]}
       >
         {isCreating ? (
-          <Spinner className="w-5 h-auto m-1" />
+          <Spinner className={styles["create-consumer-icon"]} />
         ) : (
-          <CheckIcon className="w-5 h-auto m-1" />
+          <CheckIcon className={styles["create-consumer-icon"]} />
         )}
       </button>
     </div>

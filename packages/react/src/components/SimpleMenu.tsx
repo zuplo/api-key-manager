@@ -1,10 +1,11 @@
 import { useEffect, useRef, useState } from "react";
 
 import styles from "./SimpleMenu.module.css";
+import { MenuItem } from "..";
 
 interface Props {
   disabled?: boolean;
-  items: { label: string; action: () => void; icon?: JSX.Element }[];
+  items: MenuItem[];
   children: JSX.Element;
 }
 
@@ -52,7 +53,8 @@ export function SimpleMenu({ disabled, items, children }: Props) {
                   onClick={() => click(item.action)}
                   className={styles["simple-menu-item-button"]}
                 >
-                  {item.label}
+                  {item.icon && <>{item.icon}</>}
+                  <span className="ml-2">{item.label}</span>
                 </button>
               ))}
             </div>

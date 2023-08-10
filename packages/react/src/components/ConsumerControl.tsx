@@ -3,9 +3,12 @@ import { Consumer, MenuItem } from "../interfaces";
 import KeyControl from "./KeyControl";
 import { SimpleMenu } from "./SimpleMenu";
 import {
+  ArrowPathIcon,
   EllipsisVerticalIcon,
+  PencilSquareIcon,
   Save,
   Spinner,
+  TrashIcon,
   XCircleIcon,
   XIcon,
 } from "./icons";
@@ -105,19 +108,22 @@ const ConsumerControl = ({
     action: () => {
       setEdit(true);
     },
+    icon: PencilSquareIcon({}),
   };
 
-  const rollKeysMenuItem = {
+  const rollKeysMenuItem: MenuItem = {
     label:
       consumer.apiKeys.filter((k) => !k.expiresOn).length > 1
         ? "Roll keys"
         : "Roll key",
     action: handleRollKey,
+    icon: ArrowPathIcon({}),
   };
 
-  const deleteConsumerMenuItem = {
+  const deleteConsumerMenuItem: MenuItem = {
     label: "Delete",
     action: handleDeleteConsumer,
+    icon: TrashIcon({}),
   };
 
   const initialMenuItems = [editLabelMenuItem, rollKeysMenuItem];
@@ -126,17 +132,7 @@ const ConsumerControl = ({
     initialMenuItems.push(deleteConsumerMenuItem);
   }
 
-  const fancyDropDownMenuItems = [
-    ...initialMenuItems,
-    ...(menuItems?.map((item) => {
-      return {
-        label: item.label,
-        action: () => {
-          item.action(consumer);
-        },
-      };
-    }) ?? []),
-  ];
+  const withCustomMenuItems = [...initialMenuItems, ...(menuItems ?? [])];
 
   return (
     <ErrorContext.Provider value={[error, setError]}>
@@ -192,7 +188,7 @@ const ConsumerControl = ({
                 <Spinner className={styles["consumer-control-menu-spinner"]} />
               </div>
             ) : (
-              <SimpleMenu items={fancyDropDownMenuItems ?? []}>
+              <SimpleMenu items={withCustomMenuItems ?? []}>
                 <div className={styles["consumer-control-menu-button"]}>
                   <EllipsisVerticalIcon
                     className={styles["consumer-control-menu-icon"]}

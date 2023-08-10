@@ -17,7 +17,8 @@ export interface ApiKeyManagerProvider {
 
 export interface MenuItem {
   label: string;
-  action: (consumer: Consumer) => void;
+  action: () => void;
+  icon?: JSX.Element;
 }
 
 export interface ConsumerData {
