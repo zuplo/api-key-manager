@@ -63,6 +63,7 @@ function ApiKeyManager({
       setDataModel({ consumers: result.data, isFetching: false });
     } catch (err) {
       setError((err as Error).message);
+      setDataModel({ consumers: undefined, isFetching: false });
       console.error(err);
     }
   };
@@ -86,6 +87,8 @@ function ApiKeyManager({
     void loadData(provider);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [provider]);
+
+  console.log("dataModel", dataModel);
 
   if (!dataModel.consumers && dataModel.isFetching) {
     return (
