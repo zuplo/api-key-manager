@@ -27,3 +27,7 @@
 .simple-menu-dropdown {
   @apply text-zinc-800 dark:text-zinc-200 p-1;
 }
+
+.simple-menu-item-icon {
+  @apply h-4 w-auto mr-2;
+}

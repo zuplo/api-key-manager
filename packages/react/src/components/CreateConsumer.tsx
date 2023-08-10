@@ -66,10 +66,11 @@ export default function CreateConsumer() {
         value={label}
         onChange={handleLabelChange}
         autoFocus
+        disabled={isCreating}
         className={
           isInvalid
-            ? styles["create-consumer-input-invalid"]
-            : styles["create-consumer-input"]
+            ? styles["create-consumer-label-invalid"]
+            : styles["create-consumer-label"]
         }
       />
       <button
@@ -77,7 +78,7 @@ export default function CreateConsumer() {
         className={styles["create-consumer-button"]}
       >
         {isCreating ? (
-          <Spinner className={styles["create-consumer-icon"]} />
+          <Spinner className={styles["create-consumer-spinner"]} />
         ) : (
           <CheckIcon className={styles["create-consumer-icon"]} />
         )}

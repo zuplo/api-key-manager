@@ -1,9 +1,7 @@
 import ApiKeyManager, {
-  Consumer,
   DefaultApiKeyManagerProvider,
 } from "@zuplo/react-api-key-manager";
-import { useCallback, useContext, useMemo, useState } from "react";
-import Spinner from "./Spinner";
+import { useContext, useMemo } from "react";
 import { ThemeContext } from "@/contexts/ThemeContext";
 
 interface Props {
