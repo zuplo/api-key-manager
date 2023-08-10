@@ -4,7 +4,7 @@ import styles from "./SimpleMenu.module.css";
 
 interface Props {
   disabled?: boolean;
-  items: { label: string; action: () => void }[];
+  items: { label: string; action: () => void; icon?: JSX.Element }[];
   children: JSX.Element;
 }
 

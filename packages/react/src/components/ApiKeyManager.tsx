@@ -5,12 +5,14 @@ import { XCircleIcon } from "./icons";
 import styles from "./ApiKeyManager.module.css";
 import { useCallback, useEffect, useState } from "react";
 import { DataContext, ProviderContext } from "./context";
+import CreateConsumer from "./CreateConsumer";
 
 interface Props {
   menuItems?: MenuItem[];
   theme?: "light" | "dark";
   provider: ApiKeyManagerProvider;
-  showIsLoading?: boolean;
+  enableCreateConsumer?: boolean;
+  enableDeleteConsumer?: boolean;
 }
 
 const getSystemDefaultThemePreference = (): "dark" | "light" => {
@@ -28,7 +30,13 @@ const DEFAULT_DATA_MODEL: DataModel = {
   consumers: undefined,
 };
 
-function ApiKeyManager({ provider, menuItems, theme }: Props) {
+function ApiKeyManager({
+  provider,
+  menuItems,
+  theme,
+  enableCreateConsumer,
+  enableDeleteConsumer,
+}: Props) {
   const themeStyle = `zp-key-manager--${
     theme ?? getSystemDefaultThemePreference()
   }`;
@@ -55,6 +63,10 @@ function ApiKeyManager({ provider, menuItems, theme }: Props) {
 
   useEffect(() => {
     const handle = provider.registerOnRefresh(() => {
+      if (dataModel.isFetching) {
+        // don't refetch if fetching
+        return;
+      }
       setDataModel({ ...dataModel, isFetching: true });
       loadData(provider);
       setDataModel({ consumers: dataModel.consumers, isFetching: false });
@@ -106,10 +118,12 @@ function ApiKeyManager({ provider, menuItems, theme }: Props) {
                 key={c.name}
                 consumer={c}
                 menuItems={menuItems}
+                enableDeleteConsumer={enableDeleteConsumer}
               />
             );
           })}
         </div>
+        {enableCreateConsumer && <CreateConsumer />}
       </DataContext.Provider>
     </ProviderContext.Provider>
   );

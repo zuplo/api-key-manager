@@ -16,6 +16,7 @@ import { useDataContext, useProviderContext } from "./context";
 interface ConsumerControlProps {
   consumer: Consumer;
   menuItems?: MenuItem[];
+  enableDeleteConsumer?: boolean;
 }
 
 export const ErrorContext = createContext<
@@ -25,13 +26,17 @@ export const ErrorContext = createContext<
 // 7 days
 const EXPIRY_PERIOD = 1000 * 60 * 60 * 24 * 7;
 
-const ConsumerControl = ({ consumer, menuItems }: ConsumerControlProps) => {
+const ConsumerControl = ({
+  consumer,
+  menuItems,
+  enableDeleteConsumer,
+}: ConsumerControlProps) => {
   const [edit, setEdit] = useState(false);
   const [error, setError] = useState<string>();
   const [description, setDescription] = useState(consumer.description);
   const [dataModel, setDataModel] = useDataContext();
   const [descriptionUpdating, setDescriptionUpdating] = useState(false);
-  const [keyRolling, setKeyRolling] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
   const provider = useProviderContext();
 
   const handleDescriptionSave = async () => {
@@ -55,7 +60,7 @@ const ConsumerControl = ({ consumer, menuItems }: ConsumerControlProps) => {
 
   const handleRollKey = async () => {
     try {
-      setKeyRolling(true);
+      setIsLoading(true);
       await provider.rollKey(
         consumer.name,
         new Date(Date.now() + EXPIRY_PERIOD),
@@ -69,7 +74,29 @@ const ConsumerControl = ({ consumer, menuItems }: ConsumerControlProps) => {
     } catch (err: any) {
       setError(err.message);
     } finally {
-      setKeyRolling(false);
+      setIsLoading(false);
+    }
+  };
+
+  const handleDeleteConsumer = async () => {
+    try {
+      if (!provider.deleteConsumer) {
+        throw new Error(
+          "Provider does not support deleteConsumer but enableDeleteConsumer is true",
+        );
+      }
+      setIsLoading(true);
+      await provider.deleteConsumer(consumer.name);
+      const result = await provider.getConsumers();
+      setDataModel({
+        ...dataModel,
+        consumers: result.data,
+      });
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    } catch (err: any) {
+      setError(err.message);
+    } finally {
+      setIsLoading(false);
     }
   };
 
@@ -88,9 +115,19 @@ const ConsumerControl = ({ consumer, menuItems }: ConsumerControlProps) => {
     action: handleRollKey,
   };
 
+  const deleteConsumerMenuItem = {
+    label: "Delete",
+    action: handleDeleteConsumer,
+  };
+
+  const initialMenuItems = [editLabelMenuItem, rollKeysMenuItem];
+
+  if (enableDeleteConsumer) {
+    initialMenuItems.push(deleteConsumerMenuItem);
+  }
+
   const fancyDropDownMenuItems = [
-    editLabelMenuItem,
-    rollKeysMenuItem,
+    ...initialMenuItems,
     ...(menuItems?.map((item) => {
       return {
         label: item.label,
@@ -148,7 +185,7 @@ const ConsumerControl = ({ consumer, menuItems }: ConsumerControlProps) => {
             </div>
           )}
           <div className={styles["consumer-menu-button-wrapper"]}>
-            {dataModel.isFetching || keyRolling ? (
+            {dataModel.isFetching || isLoading ? (
               <div
                 className={styles["consumer-control-menu-spinner-container"]}
               >
