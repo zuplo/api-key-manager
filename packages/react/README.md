@@ -24,7 +24,7 @@ management API.
 
 To see a demo of the component visit https://api-key-manager.com.
 
-Try it out by following our detailed [walkthrough tutorial](https://github.com/zuplo/api-key-manager/).
+Try it out by following our detailed [walkthrough tutorial]([https://github.com/zuplo/api-key-manager/](https://zuplo.com/blog/2023/08/08/open-source-release)).
 
 ## Getting Started
 
