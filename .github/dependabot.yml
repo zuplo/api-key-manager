@@ -11,6 +11,8 @@ updates:
       interval: weekly
   - package-ecosystem: npm
     directory: /
+    registries:
+      - npm-github
     schedule:
       interval: weekly
     groups:
