@@ -30,7 +30,7 @@
     "husky": "^8.0.3",
     "lint-staged": "^13.2.3",
     "prettier": "^3.0.3",
-    "typescript": "^5.0.2"
+    "typescript": "^5.2.2"
   },
   "lint-staged": {
     "**/*.{ts,json,md,yml,js,css,html}": [
