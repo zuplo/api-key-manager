@@ -13,7 +13,7 @@
     "@heroicons/react": "^2.0.18",
     "@auth0/auth0-react": "2.2.0",
     "@types/node": "20.4.2",
-    "@types/react": "18.2.14",
+    "@types/react": "18.2.21",
     "@types/react-dom": "18.2.7",
     "@zuplo/react-api-key-manager": "^2",
     "autoprefixer": "10.4.14",
