@@ -10,7 +10,7 @@
   <a aria-label="License" href="https://github.com/zuplo/api-key-manager/blob/main/LICENSE">
     <img alt="" src="https://img.shields.io/npm/l/@zuplo/react-api-key-manager.svg?style=for-the-badge&labelColor=000000">
   </a>
-  <a aria-label="Join the community on Discord" href="https://discord.gg/Y87N4SxjvJ">
+  <a aria-label="Join the community on Discord" href="https://discord.zuplo.com">
     <img alt="" src="https://img.shields.io/badge/Chat%20on%20discord-5865F2.svg?style=for-the-badge&logo=discord&labelColor=000000&logoWidth=20">
   </a>
 </p>
