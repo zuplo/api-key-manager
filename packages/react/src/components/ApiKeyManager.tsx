@@ -112,30 +112,31 @@ function ApiKeyManager({
 
   const consumers = dataModel.consumers ?? [];
 
-  if (consumers.length === 0) {
-    return (
-      <div className={themeStyle}>
-        <div className={styles["no-keys-message"]}>You have no API keys</div>
-      </div>
-    );
-  }
-
   return (
     <ProviderContext.Provider value={provider}>
       <DataContext.Provider value={[dataModel, setDataModel]}>
-        <div className={themeStyle}>
-          {consumers.map((c) => {
-            return (
-              <ConsumerControl
-                key={c.name}
-                consumer={c}
-                menuItems={menuItems}
-                enableDeleteConsumer={enableDeleteConsumer}
-              />
-            );
-          })}
-        </div>
-        {enableCreateConsumer && <CreateConsumer />}
+        <>
+          {consumers.length === 0 && (
+            <div className={themeStyle}>
+              <div className={styles["no-keys-message"]}>
+                You have no API keys
+              </div>
+            </div>
+          )}
+          <div className={themeStyle}>
+            {consumers.map((c) => {
+              return (
+                <ConsumerControl
+                  key={c.name}
+                  consumer={c}
+                  menuItems={menuItems}
+                  enableDeleteConsumer={enableDeleteConsumer}
+                />
+              );
+            })}
+          </div>
+          {enableCreateConsumer && <CreateConsumer />}
+        </>
       </DataContext.Provider>
     </ProviderContext.Provider>
   );
